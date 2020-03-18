@@ -27,7 +27,7 @@ public class ExpertSystem {
 
     public boolean addKnowledge(Statement s) {
         for(Statement sts : this.knowledgeBase) {
-            if(s.inferedFrom(sts)) {
+            if(s.inferredFrom(sts)) {
                 return false;
             }
         }
