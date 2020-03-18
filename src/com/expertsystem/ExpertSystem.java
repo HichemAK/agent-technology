@@ -120,9 +120,7 @@ public class ExpertSystem {
                 }
             }
 
-            for(Integer rem : removables) {
-                rulesIndexes.remove(rem);
-            }
+            rulesIndexes.removeAll(removables);
         }
 
     }
