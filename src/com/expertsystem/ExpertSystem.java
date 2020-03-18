@@ -1,4 +1,4 @@
-package com.expert_system;
+package com.expertsystem;
 
 public class ExpertSystem {
 }
