@@ -10,7 +10,7 @@ public class Main {
                 new Rule("Bicycle",
                         new ArrayList<Statement>(Arrays.asList(
                                 new Statement("vehicleType", Type.STRING, Operation.EQ, "cycle"),
-                                new Statement("num_wheels", Type.INTEGER, Operation.EQ, 4),
+                                new Statement("num_wheels", Type.INTEGER, Operation.GREAT_EQ, 5),
                                 new Statement("motor", Type.BOOLEAN, Operation.EQ, false)
                         )),
                         new ArrayList<Statement>(Arrays.asList(
@@ -20,7 +20,7 @@ public class Main {
 
         ArrayList<Statement> knowledge = new ArrayList<>(Arrays.asList(
                 new Statement("vehicleType", Type.STRING, Operation.EQ, "cycle"),
-                new Statement("num_wheels", Type.INTEGER, Operation.EQ, 4),
+                new Statement("num_wheels", Type.INTEGER, Operation.GREAT_EQ, 4),
                 new Statement("motor", Type.BOOLEAN, Operation.EQ, false)
         ));
 
@@ -29,7 +29,5 @@ public class Main {
         ExpertSystem ES = new ExpertSystem(rules, knowledge);
 
         System.out.println(ES.infer(goal));
-
-
     }
 }

@@ -68,6 +68,7 @@ public class ExpertSystem {
 
     public boolean infer(Statement goal) {
         ArrayList<Integer> rulesIndexes = getRulesIndexes();
+        ArrayList<Integer> removables = new ArrayList<Integer>();
         boolean changed = true;
         boolean result = false;
         boolean resultRule = true;
@@ -89,7 +90,7 @@ public class ExpertSystem {
 
             changed = false;
 
-            for(int index : rulesIndexes) {
+            for(Integer index : rulesIndexes) {
                 Rule currentRule = rules.get(index);
                 resultRule = true;
 
@@ -113,9 +114,14 @@ public class ExpertSystem {
                     for(Statement c : currentRule.getConsequences()) {
                         this.addKnowledge(c);
                     }
-                    rulesIndexes.remove(rulesIndexes.indexOf(index));
+
+                    removables.add(rulesIndexes.indexOf(index));
                     changed = true;
                 }
+            }
+
+            for(Integer rem : removables) {
+                rulesIndexes.remove(rem);
             }
         }
 
