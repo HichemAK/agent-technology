@@ -42,6 +42,30 @@ public class ExpertSystem {
         return true;
     }
 
+    public void removeRedundancies() {
+        int removable = 0;
+        while(removable >= 0) {
+            removable = -1;
+            for(Statement sts : this.knowledgeBase) {
+                for(Statement sts2 : this.knowledgeBase) {
+                    if(sts2 == sts) {
+                        continue;
+                    }
+                    if(sts.inferredFrom(sts2)) {
+                        removable = this.knowledgeBase.indexOf(sts);
+                        break;
+                    }
+                }
+                if(removable >= 0) {
+                    break;
+                }
+            }
+            if(removable >= 0) {
+                this.removeStatement(removable);
+            }
+        }
+    }
+
     public boolean removeStatement(int index) {
         if(index < 0 || index >= knowledgeBase.size()) {
             return false;
@@ -127,9 +151,7 @@ public class ExpertSystem {
                 }
             }
 
-            for(Integer rem : removables) {
-                rulesIndexes.remove(rem);
-            }
+            rulesIndexes.removeAll(removables);
         }
 
     }

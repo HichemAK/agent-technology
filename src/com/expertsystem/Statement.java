@@ -81,4 +81,16 @@ public class Statement {
     public String getVarName() {
         return varName;
     }
+
+    public Object getValue() {
+        return value;
+    }
+
+    public Operation getOperation() {
+        return operation;
+    }
+
+    public Type getType() {
+        return type;
+    }
 }
