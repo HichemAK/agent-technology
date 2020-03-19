@@ -72,6 +72,12 @@ public class AdminController {
         currentFile = null;
         ES = new ExpertSystem();
         buttSave.setDisable(true);
+        refresh();
+    }
+
+    public void clearES(ActionEvent actionEvent){
+        ES = new ExpertSystem();
+        refresh();
     }
 
     private void refresh() {
