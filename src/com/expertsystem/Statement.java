@@ -72,4 +72,20 @@ public class Statement {
 
         return false;
     }
+
+    public Object getValue() {
+        return value;
+    }
+
+    public Operation getOperation() {
+        return operation;
+    }
+
+    public String getVarName() {
+        return varName;
+    }
+
+    public Type getType() {
+        return type;
+    }
 }
