@@ -17,6 +17,13 @@ public class ExpertSystem {
         this.knowledgeBase = new ArrayList<Statement>();
     }
 
+    public ExpertSystem(String filepath) {
+        /**
+         * Loads ExpertSystem from file located at 'filepath' TODO
+         */
+        this();
+    }
+
     public ArrayList<Rule> getRules() {
         return rules;
     }

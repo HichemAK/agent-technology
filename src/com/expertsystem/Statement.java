@@ -72,4 +72,13 @@ public class Statement {
 
         return false;
     }
+
+    @Override
+    public String toString() {
+        return varName + " " + operation.getSymb() + " " + value.toString();
+    }
+
+    public String getVarName() {
+        return varName;
+    }
 }
