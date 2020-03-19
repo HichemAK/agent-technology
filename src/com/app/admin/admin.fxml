@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.app.admin.AdminController"
-            prefHeight="400.0" prefWidth="600.0">
 
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.app.admin.AdminController">
+   <children>
+      <JFXButton fx:id="buttLoad" layoutX="165.0" layoutY="38.0" onAction="#loadES" text="Load" />
+      <JFXButton fx:id="buttSave" layoutX="309.0" layoutY="38.0" onAction="#saveES" text="Save" />
+      <JFXButton fx:id="buttSaveAs" layoutX="236.0" layoutY="38.0" onAction="#saveAsES" text="SaveAs" />
+      <JFXButton fx:id="buttExit" layoutX="367.0" layoutY="38.0" onAction="#exit" text="Exit" />
+   </children>
 </AnchorPane>

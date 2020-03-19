@@ -1,5 +1,6 @@
 package com.expertsystem;
 
+import java.io.File;
 import java.util.ArrayList;
 
 public class ExpertSystem {
@@ -20,6 +21,13 @@ public class ExpertSystem {
     public ExpertSystem(String filepath) {
         /**
          * Loads ExpertSystem from file located at 'filepath' TODO
+         */
+        this();
+    }
+
+    public ExpertSystem(File fileES) {
+        /**
+         * Loads ExpertSystem from file 'fileES' TODO
          */
         this();
     }
@@ -164,5 +172,11 @@ public class ExpertSystem {
         }
 
         return ret;
+    }
+
+    public void save(File fileES) {
+        /**
+         * Save Expert System in 'fileES'
+         */
     }
 }
