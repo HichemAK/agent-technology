@@ -1,24 +1,30 @@
 package com.app.admin;
 
-import com.expertsystem.ExpertSystem;
+import com.expertsystem.*;
 import com.jfoenix.controls.JFXButton;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.event.ActionEvent;
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Optional;
 
 public class AdminController {
     @FXML
     JFXButton buttLoad, buttSave, buttSaveAs, buttNormalize, buttNew, buttExit, buttRules, buttRefresh;
     ExpertSystem ES = new ExpertSystem();
+    VBox vbRules;
+
 
     File currentFile = null;
 
-    public void intialize(){
+    public void intialize() throws Exception {
+        
     }
 
 
