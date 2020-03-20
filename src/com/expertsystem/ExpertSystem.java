@@ -1,9 +1,9 @@
 package com.expertsystem;
 
-import java.io.File;
+import java.io.*;
 import java.util.ArrayList;
 
-public class ExpertSystem {
+public class ExpertSystem implements Serializable{
 
     private ArrayList<Rule> rules;
     private ArrayList<Statement> knowledgeBase;
@@ -20,16 +20,27 @@ public class ExpertSystem {
 
     public ExpertSystem(String filepath) {
         /**
-         * Loads ExpertSystem from file located at 'filepath' TODO
+         * Loads ExpertSystem from file located at 'filepath'
          */
-        this();
+        try {
+            FileInputStream fileIn = new FileInputStream(filepath);
+            ObjectInputStream objectIn = new ObjectInputStream(fileIn);
+            ExpertSystem ES = (ExpertSystem) objectIn.readObject();
+            objectIn.close();
+
+            this.knowledgeBase = ES.knowledgeBase;
+            this.rules = ES.rules;
+        }
+        catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }
 
     public ExpertSystem(File fileES) {
         /**
-         * Loads ExpertSystem from file 'fileES' TODO
+         * Loads ExpertSystem from file 'fileES'
          */
-        this();
+        this(fileES.getAbsolutePath());
     }
 
     public ArrayList<Rule> getRules() {
@@ -174,9 +185,32 @@ public class ExpertSystem {
         return ret;
     }
 
-    public void save(File fileES) {
-        /**
-         * Save Expert System in 'fileES'
-         */
+    public void save(String filepath) {
+        try {
+            FileOutputStream fileOut = new FileOutputStream(filepath);
+            ObjectOutputStream objectOut = new ObjectOutputStream(fileOut);
+            objectOut.writeObject(this);
+            objectOut.close();
+        }
+        catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    public void save(File file){
+        save(file.getAbsolutePath());
+    }
+
+    @Override
+    public String toString() {
+        StringBuffer result = new StringBuffer("Rules: \n======\n");
+        for(Rule R : rules){
+            result.append(R.toString() + "\n");
+        }
+        result.append("\nKnowledgeBase:\n==============\n");
+        for(Statement S : knowledgeBase){
+            result.append(S.toString() + "\n");
+        }
+        return result.toString();
     }
 }

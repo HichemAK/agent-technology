@@ -1,6 +1,8 @@
 package com.expertsystem;
 
-public class Statement {
+import java.io.Serializable;
+
+public class Statement implements Serializable {
     private String varName;
     private Type type;
     private Operation operation;

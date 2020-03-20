@@ -10,7 +10,7 @@ public class Main {
                 new Rule("Bicycle",
                         new ArrayList<Statement>(Arrays.asList(
                                 new Statement("vehicleType", Type.STRING, Operation.EQ, "cycle"),
-                                new Statement("num_wheels", Type.INTEGER, Operation.GREAT_EQ, 5),
+                                new Statement("num_wheels", Type.INTEGER, Operation.GREAT_EQ, 3),
                                 new Statement("motor", Type.BOOLEAN, Operation.EQ, false)
                         )),
                         new ArrayList<Statement>(Arrays.asList(
@@ -28,6 +28,17 @@ public class Main {
 
         ExpertSystem ES = new ExpertSystem(rules, knowledge);
 
-        System.out.println(ES.infer(goal));
+        System.out.println("=============================BEFORE INFERENCE:=============================");
+        System.out.println(ES);
+        ES.infer(goal);
+        System.out.println("=============================AFTER INFERENCE:=============================");
+        System.out.println(ES);
+
+        String filepath = "C:\\Users\\dell\\Desktop\\haha.es";
+        System.out.println("Saving Expert System...");
+        ES.save(filepath);
+        System.out.println("Reloading Expert System...\n\n\n");
+        ES = new ExpertSystem(filepath);
+        System.out.println(ES);
     }
 }
