@@ -1,6 +1,7 @@
 package com.app.admin;
 
 import com.expertsystem.ExpertSystem;
+import com.expertsystem.Rule;
 import com.jfoenix.controls.JFXButton;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -8,17 +9,22 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.stage.FileChooser;
 import javafx.event.ActionEvent;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+
 import java.io.File;
 import java.util.Optional;
 
 public class AdminController {
     @FXML
-    JFXButton buttLoad, buttSave, buttSaveAs, buttNormalize, buttNew, buttExit, buttRules, buttRefresh;
+    JFXButton buttLoad, buttSave, buttSaveAs, buttNormalize, buttNew, buttExit, buttRules, buttRefresh, buttAddRule;
     ExpertSystem ES = new ExpertSystem();
 
     File currentFile = null;
+    public static Rule addedRule = null;
 
     public void intialize(){
+
     }
 
 
@@ -78,6 +84,16 @@ public class AdminController {
     public void clearES(ActionEvent actionEvent){
         ES = new ExpertSystem();
         refresh();
+    }
+
+    public void addRule(ActionEvent actionEvent){
+        Stage dialog = new Stage();
+
+        dialog.initOwner(buttAddRule.getScene().getWindow());
+        dialog.initModality(Modality.APPLICATION_MODAL);
+        dialog.showAndWait();
+
+        // Now the rule is stocked in the static variable "addedRule". Do the right modification TODO
     }
 
     private void refresh() {

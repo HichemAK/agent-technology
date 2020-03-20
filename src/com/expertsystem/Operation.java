@@ -17,4 +17,9 @@ public enum Operation {
     public String getSymb(){
         return symb;
     }
+
+    @Override
+    public String toString() {
+        return symb;
+    }
 }
