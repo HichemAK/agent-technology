@@ -1,5 +1,6 @@
 package com.app.admin;
 
+
 import com.expertsystem.ExpertSystem;
 import com.expertsystem.Rule;
 import com.jfoenix.controls.JFXButton;
@@ -7,6 +8,7 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.event.ActionEvent;
 import javafx.stage.Modality;
@@ -19,11 +21,13 @@ public class AdminController {
     @FXML
     JFXButton buttLoad, buttSave, buttSaveAs, buttNormalize, buttNew, buttExit, buttRules, buttRefresh, buttAddRule;
     ExpertSystem ES = new ExpertSystem();
+    VBox vbRules;
+
 
     File currentFile = null;
     public static Rule addedRule = null;
 
-    public void intialize(){
+    public void initialize(){
 
     }
 
@@ -97,5 +101,6 @@ public class AdminController {
     }
 
     private void refresh() {
+
     }
 }
