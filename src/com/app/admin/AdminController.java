@@ -28,7 +28,7 @@ public class AdminController {
     public static Rule addedRule = null;
 
     public void initialize(){
-
+        System.out.println(123456);
     }
 
 
