@@ -50,4 +50,24 @@ public class Rule implements Serializable {
         result.delete(result.length() - 5, result.length());
         return result.toString();
     }
+
+    public ArrayList<String> antecedentsToString() {
+        ArrayList<String> ret = new ArrayList<String>();
+
+        for(Statement s : antecedents) {
+            ret.add(s.toString());
+        }
+
+        return ret;
+    }
+
+    public ArrayList<String> consequencesToString() {
+        ArrayList<String> ret = new ArrayList<String>();
+
+        for(Statement s : consequences) {
+            ret.add(s.toString());
+        }
+
+        return ret;
+    }
 }

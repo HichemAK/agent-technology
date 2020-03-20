@@ -34,7 +34,7 @@ public class Main {
         System.out.println("=============================AFTER INFERENCE:=============================");
         System.out.println(ES);
 
-        String filepath = "C:\\Users\\dell\\Desktop\\haha.es";
+        String filepath = "C:\\Users\\MSI\\Desktop\\haha.es";
         System.out.println("Saving Expert System...");
         ES.save(filepath);
         System.out.println("Reloading Expert System...\n\n\n");

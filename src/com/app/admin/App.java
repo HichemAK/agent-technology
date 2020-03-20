@@ -15,7 +15,7 @@ public class App extends javafx.application.Application {
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("admin.fxml"));
         primaryStage.setTitle("Expert System Administrator");
-        primaryStage.setScene(new Scene(root, 600, 400));
+        primaryStage.setScene(new Scene(root));
 
         primaryStage.show();
     }
