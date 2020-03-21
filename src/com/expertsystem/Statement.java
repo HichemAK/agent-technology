@@ -3,6 +3,8 @@ package com.expertsystem;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashSet;
 
 public class Statement implements Serializable {
     private String varName;
@@ -77,6 +79,32 @@ public class Statement implements Serializable {
         return false;
     }
 
+    public static Statement[] removeRedundancies(Statement[] statements){
+        ArrayList<Statement> result = new ArrayList<>();
+        ArrayList<Statement> toRemove;
+        boolean S1inferS2, S2inferS1;
+        for(Statement S1 : statements){
+            S1inferS2 = false;
+            S2inferS1 = false;
+            toRemove = new ArrayList<>();
+            for(Statement S2 : result){
+                if(S1.inferredFrom(S2)){
+                    S2inferS1 = true;
+                    break;
+                }
+                if(S2.inferredFrom(S1)){
+                    S1inferS2 = true;
+                    toRemove.add(S2);
+                }
+            }
+            if(!S2inferS1 || S1inferS2){
+                result.add(S1);
+            }
+            result.removeAll(toRemove);
+        }
+        return result.toArray(new Statement[result.size()]);
+    }
+
     @Override
     public String toString() {
         return varName + " " + operation.getSymb() + " " + value.toString();
@@ -97,4 +125,6 @@ public class Statement implements Serializable {
     public Type getType() {
         return type;
     }
+
+
 }

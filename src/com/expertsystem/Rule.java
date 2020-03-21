@@ -70,4 +70,8 @@ public class Rule implements Serializable {
 
         return ret;
     }
+
+    public void removeRedundancies(){
+        
+    }
 }

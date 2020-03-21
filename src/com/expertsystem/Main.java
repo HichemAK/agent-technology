@@ -1,5 +1,7 @@
 package com.expertsystem;
 
+import com.sun.glass.ui.Window;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -34,11 +36,27 @@ public class Main {
         System.out.println("=============================AFTER INFERENCE:=============================");
         System.out.println(ES);
 
-        String filepath = "C:\\Users\\MSI\\Desktop\\haha.es";
+        String filepath = "C:\\Users\\dell\\Desktop\\haha.es";
         System.out.println("Saving Expert System...");
         ES.save(filepath);
         System.out.println("Reloading Expert System...\n\n\n");
         ES = new ExpertSystem(filepath);
         System.out.println(ES);
+
+        Statement[] test = {
+                new Statement("A", Type.INTEGER, Operation.GREAT, 0),
+                new Statement("A", Type.INTEGER, Operation.GREAT, 1),
+                new Statement("A", Type.INTEGER, Operation.GREAT, 2)
+        };
+
+        System.out.println("Before remove redundancies");
+        for(Statement S : test){
+            System.out.println(S);
+        }
+        System.out.println("After remove redundancies");
+        Statement[] tested = Statement.removeRedundancies(test);
+        for(Statement S : tested){
+            System.out.println(S);
+        }
     }
 }

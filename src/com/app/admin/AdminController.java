@@ -131,7 +131,7 @@ public class AdminController {
         Stage stage = new Stage();
         Parent root = FXMLLoader.load(AddRuleController.class.getResource("addRule.fxml"));
         stage.setScene(new Scene(root));
-        stage.setTitle("My modal window");
+        stage.setTitle("Add rule");
         stage.initModality(Modality.WINDOW_MODAL);
         stage.initOwner(((Node)actionEvent.getSource()).getScene().getWindow());
         stage.showAndWait();
