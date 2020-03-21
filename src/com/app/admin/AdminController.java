@@ -135,7 +135,12 @@ public class AdminController {
         stage.initOwner(((Node)actionEvent.getSource()).getScene().getWindow());
         stage.showAndWait();
 
-        // Now the rule is stocked in the static variable "addedRule". Do the right modification TODO
+        if(addedRule != null) {
+            ES.addRule(addedRule);
+            refresh();
+        }
+
+        addedRule = null;
     }
 
     private void refresh() {
