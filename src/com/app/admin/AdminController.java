@@ -36,13 +36,13 @@ public class AdminController {
     File currentFile = null;
     public static Rule addedRule = null;
 
-    public void initialize()  {
+    public void initialize() throws IOException {
         ES = new ExpertSystem();
         prepare();
         refresh();
     }
 
-    private void prepare() throws IOException{
+    private void prepare(){
         VBox.setVgrow(vbRules, Priority.ALWAYS);
         buttNew.setOnAction(this::newES);
         buttLoad.setOnAction(this::loadES);
@@ -51,7 +51,13 @@ public class AdminController {
         // buttCommit.setOnAction()
         buttOptimize.setOnAction(this::optimizeES);
         buttExit.setOnAction(this::exit);
-        buttAddRule.setOnAction(this::addRule);
+        buttAddRule.setOnAction(actionEvent -> {
+            try {
+                addRule(actionEvent);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
 
         buttClear.setOnAction(this::clearES);
     }
