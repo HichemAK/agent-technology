@@ -133,7 +133,7 @@ public class AdminController {
         stage.setTitle("My modal window");
         stage.initModality(Modality.WINDOW_MODAL);
         stage.initOwner(((Node)actionEvent.getSource()).getScene().getWindow());
-        stage.show();
+        stage.showAndWait();
 
         // Now the rule is stocked in the static variable "addedRule". Do the right modification TODO
     }
