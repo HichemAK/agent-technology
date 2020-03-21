@@ -3,6 +3,7 @@ package com.app.admin;
 import com.expertsystem.*;
 import com.jfoenix.controls.JFXButton;
 import javafx.application.Platform;
+import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -38,8 +39,8 @@ public class AdminController {
 
     public void initialize() throws IOException {
         ES = new ExpertSystem();
-        prepare();
-        refresh();
+        this.prepare();
+        this.refresh();
     }
 
     private void prepare(){
@@ -63,6 +64,19 @@ public class AdminController {
 
     public void optimizeES(ActionEvent actionEvent) {
 
+    }
+
+    public void programDelete() {
+        vbRules.getChildren().forEach(ele -> {
+            RuleVBox mine = (RuleVBox)ele;
+            JFXButton butt;
+            butt = ((JFXButton)(((HBox)(((GridPane)(mine.getChildren().get(0))).getChildren().get(1))).getChildren().get(1)));
+
+            butt.setOnAction(actionEvent -> {
+                ES.removeRule(ES.getRules().indexOf(mine.getRule()));
+                refresh();
+            });
+        });
     }
 
     public void loadES(javafx.event.ActionEvent actionEvent) {
@@ -158,6 +172,8 @@ public class AdminController {
         for(Rule r : ES.getRules()) {
             vbRules.getChildren().add(new RuleVBox(r));
         }
+
+        this.programDelete();
     }
 
     private boolean alertProceed() {
@@ -170,4 +186,6 @@ public class AdminController {
 
         return result.get() == ButtonType.OK;
     }
+
+
 }
