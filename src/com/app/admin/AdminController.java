@@ -8,6 +8,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.input.MouseEvent;
@@ -40,7 +42,7 @@ public class AdminController {
         refresh();
     }
 
-    private void prepare() {
+    private void prepare() throws IOException{
         VBox.setVgrow(vbRules, Priority.ALWAYS);
         buttNew.setOnAction(this::newES);
         buttLoad.setOnAction(this::loadES);
@@ -49,8 +51,8 @@ public class AdminController {
         // buttCommit.setOnAction()
         buttOptimize.setOnAction(this::optimizeES);
         buttExit.setOnAction(this::exit);
-
         buttAddRule.setOnAction(this::addRule);
+
         buttClear.setOnAction(this::clearES);
     }
 
@@ -119,12 +121,14 @@ public class AdminController {
         refresh();
     }
 
-    public void addRule(ActionEvent actionEvent) {
-        Stage dialog = new Stage();
-
-        dialog.initOwner(buttAddRule.getScene().getWindow());
-        dialog.initModality(Modality.APPLICATION_MODAL);
-        dialog.showAndWait();
+    public void addRule(ActionEvent actionEvent) throws IOException {
+        Stage stage = new Stage();
+        Parent root = FXMLLoader.load(AddRuleController.class.getResource("addRule.fxml"));
+        stage.setScene(new Scene(root));
+        stage.setTitle("My modal window");
+        stage.initModality(Modality.WINDOW_MODAL);
+        stage.initOwner(((Node)actionEvent.getSource()).getScene().getWindow());
+        stage.show();
 
         // Now the rule is stocked in the static variable "addedRule". Do the right modification TODO
     }
