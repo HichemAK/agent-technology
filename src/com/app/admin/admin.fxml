@@ -199,7 +199,7 @@
                         </AnchorPane>
                         <AnchorPane prefHeight="200.0" prefWidth="500.0" style="-fx-background-color: #bbbbbb;" GridPane.columnIndex="1">
                             <children>
-                                <ScrollPane fx:id="scrollRules" hbarPolicy="NEVER" layoutY="30.0" prefHeight="530.0" prefWidth="500.0" style="-fx-background: #c8c8c8; -fx-border-color: #c8c8c8;" vbarPolicy="NEVER">
+                                <ScrollPane fx:id="scrollRules" hbarPolicy="NEVER" layoutY="30.0" prefHeight="530.0" prefWidth="500.0" style="-fx-background: #c8c8c8; -fx-border-color: #c8c8c8;">
                            <content>
                               <VBox fx:id="vbRules" maxWidth="494.4" minWidth="494.4" prefWidth="494.4" spacing="20.0">
                                  <opaqueInsets>

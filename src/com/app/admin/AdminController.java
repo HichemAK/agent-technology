@@ -96,6 +96,7 @@ public class AdminController {
         if(fileES != null){
             ES.save(fileES);
             currentFile = fileES;
+            buttSave.setDisable(false);
         }
     }
 
