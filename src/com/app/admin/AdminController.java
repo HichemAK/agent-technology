@@ -36,7 +36,7 @@ public class AdminController {
     File currentFile = null;
     public static Rule addedRule = null;
 
-    public void initialize()  {
+    public void initialize() throws IOException {
         ES = new ExpertSystem();
         prepare();
         refresh();
@@ -51,7 +51,16 @@ public class AdminController {
         // buttCommit.setOnAction()
         buttOptimize.setOnAction(this::optimizeES);
         buttExit.setOnAction(this::exit);
-        buttAddRule.setOnAction(this::addRule);
+        buttAddRule.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                try {
+                    AdminController.this.addRule(actionEvent);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
 
         buttClear.setOnAction(this::clearES);
     }
