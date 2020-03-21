@@ -58,7 +58,6 @@ public class AdminController {
                 e.printStackTrace();
             }
         });
-
         buttClear.setOnAction(this::clearES);
     }
 
