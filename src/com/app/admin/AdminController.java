@@ -21,6 +21,7 @@ import javafx.event.ActionEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+import javax.swing.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -34,8 +35,11 @@ public class AdminController {
 
     ExpertSystem ES;
 
+
     File currentFile = null;
     public static Rule addedRule = null;
+    public static Rule editedRule = null;
+    public static Function function = null;
 
     public void initialize() throws IOException {
         ES = new ExpertSystem();
@@ -75,6 +79,21 @@ public class AdminController {
             butt.setOnAction(actionEvent -> {
                 ES.removeRule(ES.getRules().indexOf(mine.getRule()));
                 refresh();
+            });
+        });
+    }
+
+    public void programEdit(){
+        vbRules.getChildren().stream().map(ele -> (RuleVBox) ele).forEach(mine -> {
+            JFXButton butt;
+            butt = ((JFXButton) (((HBox) (((GridPane) (mine.getChildren().get(0))).getChildren().get(1))).getChildren().get(0)));
+            butt.setOnAction(actionEvent -> {
+                try {
+                    editedRule = mine.getRule();
+                    editRule(actionEvent);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             });
         });
     }
@@ -143,11 +162,12 @@ public class AdminController {
     }
 
     public void addRule(ActionEvent actionEvent) throws IOException {
+        function = Function.ADD;
         Stage stage = new Stage();
         Parent root = FXMLLoader.load(AddRuleController.class.getResource("addRule.fxml"));
         stage.setScene(new Scene(root));
         stage.setTitle("Add rule");
-        stage.initModality(Modality.WINDOW_MODAL);
+        stage.initModality(Modality.APPLICATION_MODAL);
         stage.initOwner(((Node)actionEvent.getSource()).getScene().getWindow());
         stage.showAndWait();
 
@@ -158,6 +178,23 @@ public class AdminController {
 
         addedRule = null;
     }
+
+    public void editRule(ActionEvent actionEvent) throws IOException {
+        function = Function.EDIT;
+        Stage stage = new Stage();
+        Parent root = FXMLLoader.load(AddRuleController.class.getResource("addRule.fxml"));
+        stage.setScene(new Scene(root));
+        stage.setTitle("Edit rule");
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.initOwner(((Node)actionEvent.getSource()).getScene().getWindow());
+        stage.showAndWait();
+
+        if(editedRule != null) {
+            refresh();
+            editedRule = null;
+        }
+    }
+
 
     private void refresh() {
         vbRules.getChildren().clear();
@@ -174,6 +211,7 @@ public class AdminController {
         }
 
         this.programDelete();
+        this.programEdit();
     }
 
     private boolean alertProceed() {
@@ -186,6 +224,7 @@ public class AdminController {
 
         return result.get() == ButtonType.OK;
     }
+
 
 
 }

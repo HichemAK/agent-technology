@@ -33,6 +33,7 @@ public class ClientController {
     public ClientController() throws Exception {
     }
 
+
     public void initialize(){
         vehicleTypeCB.setItems(FXCollections.observableArrayList("Cycle", "Automobile"));
         motorCB.setItems(FXCollections.observableArrayList("Yes", "No"));

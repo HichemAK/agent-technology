@@ -72,11 +72,26 @@ public class AddRuleController {
         operationCB.setItems(FXCollections.observableArrayList("=", "!=", ">", ">=", "<", "<="));
         typeCB.setItems(FXCollections.observableArrayList("INTEGER", "BOOLEAN", "STRING"));
 
+        if(AdminController.function == Function.EDIT && AdminController.editedRule != null){
+            addRuleButton.setText("Edit rule");
+            antecedentsTV.getItems().addAll(AdminController.editedRule.getAntecedents());
+            consequencesTV.getItems().addAll(AdminController.editedRule.getConsequences());
+            ruleNameField.setText(AdminController.editedRule.getName());
+        }
+
     }
 
     public void addRule(ActionEvent actionEvent) {
-        Rule R = new Rule(ruleNameField.getText(), new ArrayList<Statement>(antecedentsTV.getItems()), new ArrayList<Statement>(consequencesTV.getItems()));
-        AdminController.addedRule = R;
+        if(AdminController.function == Function.ADD){
+            Rule R = new Rule(ruleNameField.getText(), new ArrayList<Statement>(antecedentsTV.getItems()), new ArrayList<Statement>(consequencesTV.getItems()));
+            AdminController.addedRule = R;
+        }
+        else if(AdminController.function == Function.EDIT){
+            AdminController.editedRule.setName(ruleNameField.getText());
+            AdminController.editedRule.setAntecedents(new ArrayList<Statement>(antecedentsTV.getItems()));
+            AdminController.editedRule.setConsequences(new ArrayList<Statement>(consequencesTV.getItems()));
+        }
+
         Stage s = (Stage) cancelButton.getScene().getWindow();
         s.close();
     }

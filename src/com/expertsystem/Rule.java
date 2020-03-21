@@ -34,6 +34,18 @@ public class Rule implements Serializable {
         return consequences;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setAntecedents(ArrayList<Statement> antecedents) {
+        this.antecedents = antecedents;
+    }
+
+    public void setConsequences(ArrayList<Statement> consequences) {
+        this.consequences = consequences;
+    }
+
     @Override
     public String toString() {
         StringBuffer result = new StringBuffer(name + ": ");
