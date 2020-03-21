@@ -23,4 +23,14 @@ public abstract class Reusables {
         c.setMaxWidth(width);
     }
 
+    public static String hexFromPaint(String s) {
+        String ret = "#";
+
+        for(int i = 2; i < s.length(); i++) {
+            ret = ret + s.charAt(i);
+        }
+
+        return ret;
+    }
+
 }

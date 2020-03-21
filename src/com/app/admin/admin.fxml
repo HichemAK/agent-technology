@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: #aaaaaa;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.app.client.ClientController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: #aaaaaa;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.app.admin.AdminController">
     <children>
         <GridPane prefHeight="600.0" prefWidth="900.0">
             <columnConstraints>
@@ -78,7 +78,7 @@
                                                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                             </rowConstraints>
                                             <children>
-                                                <JFXButton fx:id="buttRule" maxHeight="70.0" maxWidth="200.0" minHeight="70.0" minWidth="200.0" prefHeight="70.0" prefWidth="200.0" ripplerFill="#2593e2" text="Rules" textAlignment="CENTER" textFill="#eeeeee">
+                                                <JFXButton fx:id="buttRule" maxHeight="70.0" maxWidth="200.0" minHeight="70.0" minWidth="200.0" prefHeight="70.0" prefWidth="200.0" ripplerFill="BLACK" text="Rules" textAlignment="CENTER" textFill="#eeeeee">
                                                     <font>
                                                         <Font name="System Bold" size="36.0" />
                                                     </font>
@@ -125,7 +125,7 @@
                                     <children>
                                         <VBox alignment="TOP_CENTER" spacing="10.0">
                                             <children>
-                                                <JFXButton fx:id="buttNew" maxHeight="40.0" maxWidth="180.0" minHeight="40.0" minWidth="180.0" prefHeight="40.0" prefWidth="180.0" style="-fx-background-color: #42acff;" text="New" textAlignment="CENTER" textFill="#212121">
+                                                <JFXButton fx:id="buttNew" maxHeight="40.0" maxWidth="180.0" minHeight="40.0" minWidth="180.0" prefHeight="40.0" prefWidth="180.0" style="-fx-border-color: #42acff; -fx-background-color: #42acff; -fx-border-radius: 5em; -fx-background-radius: 5em;" text="New" textAlignment="CENTER" textFill="#212121">
                                                     <font>
                                                         <Font size="18.0" />
                                                     </font>
@@ -133,7 +133,7 @@
                                                         <Cursor fx:constant="HAND" />
                                                     </cursor>
                                                 </JFXButton>
-                                                <JFXButton fx:id="buttLoad" maxHeight="40.0" maxWidth="180.0" minHeight="40.0" minWidth="180.0" prefHeight="40.0" prefWidth="180.0" style="-fx-background-color: #42acff;" text="Load" textAlignment="CENTER" textFill="#212121">
+                                                <JFXButton fx:id="buttLoad" maxHeight="40.0" maxWidth="180.0" minHeight="40.0" minWidth="180.0" prefHeight="40.0" prefWidth="180.0" style="-fx-border-color: #42acff; -fx-background-color: #42acff; -fx-border-radius: 5em; -fx-background-radius: 5em;" text="Load" textAlignment="CENTER" textFill="#212121">
                                                     <font>
                                                         <Font size="18.0" />
                                                     </font>
@@ -141,7 +141,7 @@
                                                         <Cursor fx:constant="HAND" />
                                                     </cursor>
                                                 </JFXButton>
-                                                <JFXButton fx:id="buttSave" disable="true" maxHeight="40.0" maxWidth="180.0" minHeight="40.0" minWidth="180.0" prefHeight="40.0" prefWidth="180.0" style="-fx-background-color: #42acff;" text="Save" textAlignment="CENTER" textFill="#212121">
+                                                <JFXButton fx:id="buttSave" disable="true" maxHeight="40.0" maxWidth="180.0" minHeight="40.0" minWidth="180.0" prefHeight="40.0" prefWidth="180.0" style="-fx-border-color: #42acff; -fx-background-color: #42acff; -fx-border-radius: 5em; -fx-background-radius: 5em;" text="Save" textAlignment="CENTER" textFill="#212121">
                                                     <font>
                                                         <Font size="18.0" />
                                                     </font>
@@ -149,7 +149,7 @@
                                                         <Cursor fx:constant="HAND" />
                                                     </cursor>
                                                 </JFXButton>
-                                                <JFXButton fx:id="buttSaveAs" maxHeight="40.0" maxWidth="180.0" minHeight="40.0" minWidth="180.0" prefHeight="40.0" prefWidth="180.0" style="-fx-background-color: #42acff;" text="Save as..." textAlignment="CENTER" textFill="#212121">
+                                                <JFXButton fx:id="buttSaveAs" maxHeight="40.0" maxWidth="180.0" minHeight="40.0" minWidth="180.0" prefHeight="40.0" prefWidth="180.0" style="-fx-border-color: #42acff; -fx-background-color: #42acff; -fx-border-radius: 5em; -fx-background-radius: 5em;" text="Save as..." textAlignment="CENTER" textFill="#212121">
                                                     <font>
                                                         <Font size="18.0" />
                                                     </font>
@@ -164,7 +164,7 @@
                                         </VBox>
                                         <VBox alignment="BOTTOM_CENTER" spacing="10.0" GridPane.rowIndex="1">
                                             <children>
-                                                <JFXButton fx:id="buttCommit" maxHeight="40.0" maxWidth="180.0" minHeight="40.0" minWidth="180.0" prefHeight="40.0" prefWidth="180.0" style="-fx-background-color: #42acff;" text="Commit" textAlignment="CENTER" textFill="#212121">
+                                                <JFXButton fx:id="buttCommit" maxHeight="40.0" maxWidth="180.0" minHeight="40.0" minWidth="180.0" prefHeight="40.0" prefWidth="180.0" style="-fx-border-color: #42acff; -fx-background-color: #42acff; -fx-border-radius: 5em; -fx-background-radius: 5em;" text="Commit" textAlignment="CENTER" textFill="#212121">
                                                     <font>
                                                         <Font size="18.0" />
                                                     </font>
@@ -172,7 +172,7 @@
                                                         <Cursor fx:constant="HAND" />
                                                     </cursor>
                                                 </JFXButton>
-                                                <JFXButton fx:id="buttNormalize" maxHeight="40.0" maxWidth="180.0" minHeight="40.0" minWidth="180.0" prefHeight="40.0" prefWidth="180.0" style="-fx-background-color: #42acff;" text="Normalize" textAlignment="CENTER" textFill="#212121">
+                                                <JFXButton fx:id="buttOptimize" maxHeight="40.0" maxWidth="180.0" minHeight="40.0" minWidth="180.0" prefHeight="40.0" prefWidth="180.0" style="-fx-border-color: #42acff; -fx-background-color: #42acff; -fx-border-radius: 5em; -fx-background-radius: 5em;" text="Optimize" textAlignment="CENTER" textFill="#212121">
                                                     <font>
                                                         <Font size="18.0" />
                                                     </font>
@@ -180,7 +180,7 @@
                                                         <Cursor fx:constant="HAND" />
                                                     </cursor>
                                                 </JFXButton>
-                                                <JFXButton fx:id="buttExit" maxHeight="40.0" maxWidth="180.0" minHeight="40.0" minWidth="180.0" prefHeight="40.0" prefWidth="180.0" style="-fx-background-color: #e03d3d;" text="Exit" textAlignment="CENTER" textFill="#212121">
+                                                <JFXButton fx:id="buttExit" maxHeight="40.0" maxWidth="180.0" minHeight="40.0" minWidth="180.0" prefHeight="40.0" prefWidth="180.0" style="-fx-border-color: #e03d3d; -fx-border-radius: 5em; -fx-background-color: #e03d3d; -fx-background-radius: 5em;" text="Exit" textAlignment="CENTER" textFill="#212121">
                                                     <font>
                                                         <Font size="18.0" />
                                                     </font>
@@ -197,11 +197,11 @@
                                 </GridPane>
                             </children>
                         </AnchorPane>
-                        <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #bbbbbb;" GridPane.columnIndex="1">
+                        <AnchorPane prefHeight="200.0" prefWidth="500.0" style="-fx-background-color: #bbbbbb;" GridPane.columnIndex="1">
                             <children>
-                                <ScrollPane fx:id="scrollRules" layoutY="30.0" prefHeight="530.0" prefWidth="500.0" style="-fx-background: #00000000;">
+                                <ScrollPane fx:id="scrollRules" hbarPolicy="NEVER" layoutY="30.0" prefHeight="530.0" prefWidth="500.0" style="-fx-background: #c8c8c8; -fx-border-color: #c8c8c8;" vbarPolicy="NEVER">
                            <content>
-                              <VBox fx:id="vbRules" prefHeight="522.0" prefWidth="494.0" spacing="20.0">
+                              <VBox fx:id="vbRules" maxWidth="494.4" minWidth="494.4" prefWidth="494.4" spacing="20.0">
                                  <opaqueInsets>
                                     <Insets />
                                  </opaqueInsets>
@@ -224,7 +224,7 @@
                                             <children>
                                                 <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="25.0" GridPane.columnIndex="1">
                                                     <children>
-                                                        <JFXButton fx:id="buttAddRule" maxWidth="120.0" minWidth="120.0" prefWidth="120.0" style="-fx-background-color: #42acff;" text="+new Rule">
+                                                        <JFXButton fx:id="buttAddRule" maxWidth="120.0" minWidth="120.0" prefWidth="120.0" style="-fx-background-color: #42acff;" text="+NEW Rule">
                                                             <font>
                                                                 <Font name="Consolas Bold" size="15.0" />
                                                             </font>
@@ -232,7 +232,7 @@
                                                                 <Cursor fx:constant="HAND" />
                                                             </cursor>
                                                         </JFXButton>
-                                                        <JFXButton fx:id="buttClear" maxWidth="120.0" minWidth="120.0" prefWidth="120.0" style="-fx-background-color: #e03d3d;" text="x all Rules">
+                                                        <JFXButton fx:id="buttClear" maxWidth="120.0" minWidth="120.0" prefWidth="120.0" style="-fx-background-color: #e03d3d;" text="-ALL Rules">
                                                             <font>
                                                                 <Font name="Consolas Bold" size="15.0" />
                                                             </font>

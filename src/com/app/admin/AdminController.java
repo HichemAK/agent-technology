@@ -1,36 +1,62 @@
 package com.app.admin;
 
-
-import com.expertsystem.ExpertSystem;
-import com.expertsystem.Rule;
+import com.expertsystem.*;
 import com.jfoenix.controls.JFXButton;
 import javafx.application.Platform;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
+import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
-import javafx.scene.layout.VBox;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.event.ActionEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Optional;
 
 public class AdminController {
     @FXML
-    JFXButton buttLoad, buttSave, buttSaveAs, buttNormalize, buttNew, buttExit, buttRules, buttRefresh, buttAddRule;
-    ExpertSystem ES = new ExpertSystem();
-    VBox vbRules;
+    public JFXButton buttNew, buttLoad, buttSave, buttSaveAs, buttCommit, buttOptimize, buttExit, buttAddRule, buttClear;
+    public VBox vbRules;
 
+    ExpertSystem ES;
 
     File currentFile = null;
     public static Rule addedRule = null;
 
-    public void initialize(){
-        System.out.println(123456);
+    public void initialize()  {
+        ES = new ExpertSystem();
+        prepare();
+        refresh();
     }
 
+    private void prepare() {
+        VBox.setVgrow(vbRules, Priority.ALWAYS);
+        buttNew.setOnAction(this::newES);
+        buttLoad.setOnAction(this::loadES);
+        buttSave.setOnAction(this::saveES);
+        buttSaveAs.setOnAction(this::saveAsES);
+        // buttCommit.setOnAction()
+        buttOptimize.setOnAction(this::optimizeES);
+        buttExit.setOnAction(this::exit);
+
+        buttAddRule.setOnAction(this::addRule);
+        buttClear.setOnAction(this::clearES);
+    }
+
+    public void optimizeES(ActionEvent actionEvent) {
+
+    }
 
     public void loadES(javafx.event.ActionEvent actionEvent) {
         FileChooser fc = new FileChooser();
@@ -48,7 +74,10 @@ public class AdminController {
     public void saveES(javafx.event.ActionEvent actionEvent) {
         if(currentFile != null){
             ES.save(currentFile);
+            refresh();
+            return ;
         }
+        buttSave.setDisable(true);
     }
 
     public void saveAsES(javafx.event.ActionEvent actionEvent) {
@@ -63,22 +92,22 @@ public class AdminController {
     }
 
     public void exit(ActionEvent actionEvent){
+
+        if(!alertProceed()) {
+            return;
+        }
+
         Platform.exit();
         System.exit(0);
     }
 
     public void newES(ActionEvent actionEvent){
-        if (currentFile != null){
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setTitle("Confirmation");
-            alert.setHeaderText("All unsaved changes will be ignored.");
-            alert.setContentText("Are you sure to continue?");
-
-            Optional<ButtonType> result = alert.showAndWait();
-            if (result.get() != ButtonType.OK){
+        if (currentFile != null || ES.getRules().size() != 0){
+            if(!alertProceed()) {
                 return;
             }
         }
+
         currentFile = null;
         ES = new ExpertSystem();
         buttSave.setDisable(true);
@@ -90,7 +119,7 @@ public class AdminController {
         refresh();
     }
 
-    public void addRule(ActionEvent actionEvent){
+    public void addRule(ActionEvent actionEvent) {
         Stage dialog = new Stage();
 
         dialog.initOwner(buttAddRule.getScene().getWindow());
@@ -101,6 +130,28 @@ public class AdminController {
     }
 
     private void refresh() {
+        vbRules.getChildren().clear();
 
+        if(currentFile == null) {
+            buttSave.setDisable(true);
+        }
+        else {
+            buttSave.setDisable(false);
+        }
+
+        for(Rule r : ES.getRules()) {
+            vbRules.getChildren().add(new RuleVBox(r));
+        }
+    }
+
+    private boolean alertProceed() {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmation");
+        alert.setHeaderText("All unsaved changes will be ignored.");
+        alert.setContentText("Are you sure to continue?");
+
+        Optional<ButtonType> result = alert.showAndWait();
+
+        return result.get() == ButtonType.OK;
     }
 }
