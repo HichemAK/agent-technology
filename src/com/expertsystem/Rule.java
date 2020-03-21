@@ -2,6 +2,7 @@ package com.expertsystem;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Rule implements Serializable {
 
@@ -72,6 +73,7 @@ public class Rule implements Serializable {
     }
 
     public void removeRedundancies(){
-        
+        antecedents = Statement.removeRedundancies(antecedents);
+        consequences = Statement.removeRedundancies(consequences);
     }
 }

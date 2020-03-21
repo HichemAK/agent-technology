@@ -54,7 +54,7 @@ public class Main {
             System.out.println(S);
         }
         System.out.println("After remove redundancies");
-        Statement[] tested = Statement.removeRedundancies(test);
+        ArrayList<Statement> tested = Statement.removeRedundancies(new ArrayList<Statement>(Arrays.asList(test)));
         for(Statement S : tested){
             System.out.println(S);
         }

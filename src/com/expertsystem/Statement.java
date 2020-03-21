@@ -79,7 +79,7 @@ public class Statement implements Serializable {
         return false;
     }
 
-    public static Statement[] removeRedundancies(Statement[] statements){
+    public static ArrayList<Statement> removeRedundancies(ArrayList<Statement> statements){
         ArrayList<Statement> result = new ArrayList<>();
         ArrayList<Statement> toRemove;
         boolean S1inferS2, S2inferS1;
@@ -102,7 +102,7 @@ public class Statement implements Serializable {
             }
             result.removeAll(toRemove);
         }
-        return result.toArray(new Statement[result.size()]);
+        return result;
     }
 
     @Override

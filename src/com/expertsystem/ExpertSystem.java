@@ -62,27 +62,10 @@ public class ExpertSystem implements Serializable{
     }
 
     public void removeRedundancies() {
-        int removable = 0;
-        while(removable >= 0) {
-            removable = -1;
-            for(Statement sts : this.knowledgeBase) {
-                for(Statement sts2 : this.knowledgeBase) {
-                    if(sts2 == sts) {
-                        continue;
-                    }
-                    if(sts.inferredFrom(sts2)) {
-                        removable = this.knowledgeBase.indexOf(sts);
-                        break;
-                    }
-                }
-                if(removable >= 0) {
-                    break;
-                }
-            }
-            if(removable >= 0) {
-                this.removeStatement(removable);
-            }
+        for(Rule R : rules){
+            R.removeRedundancies();
         }
+        knowledgeBase = Statement.removeRedundancies(knowledgeBase);
     }
 
     public boolean removeStatement(int index) {
