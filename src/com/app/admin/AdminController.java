@@ -95,6 +95,7 @@ public class AdminController {
         File fileES = fc.showSaveDialog(buttSaveAs.getScene().getWindow());
         if(fileES != null){
             ES.save(fileES);
+            currentFile = fileES;
         }
     }
 
