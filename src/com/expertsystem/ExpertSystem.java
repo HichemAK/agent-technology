@@ -2,7 +2,6 @@ package com.expertsystem;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.HashSet;
 
 public class ExpertSystem implements Serializable{
 

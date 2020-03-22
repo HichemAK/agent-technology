@@ -12,21 +12,21 @@ public class Main {
                 new Rule("Bicycle",
                         new ArrayList<Statement>(Arrays.asList(
                                 new Statement("vehicleType", Type.STRING, Operation.EQ, "cycle"),
-                                new Statement("num_wheels", Type.INTEGER, Operation.GREAT_EQ, 3),
+                                new Statement("num_wheels", Type.INTEGER, Operation.EQ, 2),
                                 new Statement("motor", Type.BOOLEAN, Operation.EQ, false)
                         )),
                         new ArrayList<Statement>(Arrays.asList(
-                                new Statement("vehicle", Type.STRING, Operation.EQ, "bicycle")
+                                new Statement("vehicle", Type.STRING, Operation.EQ, "Bicycle")
                         )))
         ));
 
         ArrayList<Statement> knowledge = new ArrayList<>(Arrays.asList(
+                new Statement("num_wheels", Type.INTEGER, Operation.EQ, 2),
                 new Statement("vehicleType", Type.STRING, Operation.EQ, "cycle"),
-                new Statement("num_wheels", Type.INTEGER, Operation.GREAT_EQ, 4),
                 new Statement("motor", Type.BOOLEAN, Operation.EQ, false)
         ));
 
-        Statement goal = new Statement("vehicle", Type.STRING, Operation.EQ, "bicycle");
+        Statement goal = new Statement("vehicle", Type.STRING, Operation.EQ, "Bicycle");
 
         ExpertSystem ES = new ExpertSystem(rules, knowledge);
 
@@ -35,8 +35,8 @@ public class Main {
         ES.infer(goal);
         System.out.println("=============================AFTER INFERENCE:=============================");
         System.out.println(ES);
-
-        String filepath = "C:\\Users\\dell\\Desktop\\haha.es";
+        ES.getKnowledgeBase().remove(3);
+        String filepath = "haha.es";
         System.out.println("Saving Expert System...");
         ES.save(filepath);
         System.out.println("Reloading Expert System...\n\n\n");
@@ -58,5 +58,6 @@ public class Main {
         for(Statement S : tested){
             System.out.println(S);
         }
+
     }
 }

@@ -96,7 +96,7 @@ public class ClientController {
         for (Statement goal : possible_results){
             if(ES.infer(goal)){
                 found = true;
-                resultLabel.setText("Your vehicle is a " + goal.getVarName().replace("_", " "));
+                resultLabel.setText("Your vehicle is a " + ((String)(goal.getValue())).replace("_", " "));
                 break;
             }
         }
