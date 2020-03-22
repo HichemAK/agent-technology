@@ -5,41 +5,57 @@ import com.expertsystem.Rule;
 import com.expertsystem.Statement;
 import com.expertsystem.Type;
 import com.jfoenix.controls.*;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.skin.TextFieldSkin;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Hashtable;
 
 public class AddRuleController {
 
-    public JFXButton addRuleButton;
-    public JFXButton cancelButton;
-    public JFXButton addConsequenceButton;
-    public JFXButton removeStatementButton;
-    public JFXButton addAntecedentButton;
-    public JFXButton clearAllButton;
-    public JFXComboBox<String> operationCB;
+    public AnchorPane apBoolean, apNumber;
 
-    public JFXComboBox<String> typeCB;
+    public JFXButton buttAddRule;
+    public JFXButton buttCancel;
+    public JFXButton buttAddConsequences;
+    public JFXButton buttAddAntecedents;
+    public JFXButton buttRemoveStatement;
+    public JFXButton buttClearAll;
+
+    public JFXComboBox<String> cbOperation;
+
+    public JFXRadioButton rbTrue, rbFalse;
+    public JFXRadioButton rbBoolean, rbNumber, rbString;
+    public ToggleGroup toggleType, toggleBool;
+
     public TableView consequencesTV;
     public TableView antecedentsTV;
-    public TextField ruleNameField;
-    public TextField varNameField;
-    public TextField valueField;
+    public TextField tfRuleName;
+    public TextField tfVarName;
+    public TextField tfValue;
 
     private Hashtable<String, Type> typeTable = new Hashtable<>();
     private Hashtable<String, Operation> opTable = new Hashtable<>();
     private String varNameRegex = "^[a-zA-Z_$][a-zA-Z_$0-9]*$";
 
+    private ArrayList<String> possibleWords;
+
+    private ObservableList<String> operationChoices = FXCollections.observableArrayList("=", "!=", ">", ">=", "<", "<=");
+
     public void initialize(){
-        typeTable.put("INTEGER", Type.INTEGER);
-        typeTable.put("STRING", Type.STRING);
-        typeTable.put("BOOLEAN", Type.BOOLEAN);
+        typeTable.put("Number", Type.INTEGER);
+        typeTable.put("String", Type.STRING);
+        typeTable.put("Boolean", Type.BOOLEAN);
 
         opTable.put("=", Operation.EQ);
         opTable.put("!=", Operation.NEQ);
@@ -68,48 +84,141 @@ public class AddRuleController {
         antecedentsTV.getColumns().addAll(varNameCol, operationCol, valueCol);
         consequencesTV.getColumns().addAll(varNameCol2, operationCol2, valueCol2);
 
+        if(rbBoolean.isSelected()) {
+            prepareForBoolean();
+        }
+        else if(rbNumber.isSelected()) {
+            prepareForNumber();
+        }
+        else if(rbString.isSelected()) {
+            prepareForString();
+        }
+        else {
+            System.out.println("wait what ?");
+        }
 
-        operationCB.setItems(FXCollections.observableArrayList("=", "!=", ">", ">=", "<", "<="));
-        typeCB.setItems(FXCollections.observableArrayList("INTEGER", "BOOLEAN", "STRING"));
+        buttAddAntecedents.setDisable(true);
+        buttAddConsequences.setDisable(true);
+        buttRemoveStatement.setDisable(true);
+
 
         if(AdminController.function == Function.EDIT && AdminController.editedRule != null){
-            addRuleButton.setText("Edit rule");
-            antecedentsTV.getItems().addAll(AdminController.editedRule.getAntecedents());
-            consequencesTV.getItems().addAll(AdminController.editedRule.getConsequences());
-            ruleNameField.setText(AdminController.editedRule.getName());
+            editInstead();
         }
+        else {
+            buttAddRule.setDisable(true);
+        }
+
+        addListeners();
+    }
+
+    private void addListeners() {
+        addListenerToggleType();
+
 
     }
 
+    private void addListenerToggleType() {
+        toggleType.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
+            @Override
+            public void changed(ObservableValue<? extends Toggle> observableValue, Toggle toggle, Toggle t1) {
+                RadioButton rb = (RadioButton)toggleType.getSelectedToggle();
+
+                if(rb != null) {
+                    String s = rb.getText();
+
+                    switch (s) {
+                        case "Boolean":
+                            prepareForBoolean();
+                            break;
+
+                        case "Number":
+                            prepareForNumber();
+                            break;
+
+                        case "String":
+                            prepareForString();
+                            break;
+
+                        default:
+                            System.out.println("ok... this is weird");
+                    }
+                }
+            }
+        });
+    }
+
+    private void editInstead() {
+        buttAddRule.setText("Finish Editing");
+        antecedentsTV.getItems().addAll(AdminController.editedRule.getAntecedents());
+        consequencesTV.getItems().addAll(AdminController.editedRule.getConsequences());
+        tfRuleName.setText(AdminController.editedRule.getName());
+    }
+
+    private void prepareForString() {
+        apBoolean.setVisible(false);
+        apNumber.setVisible(true);
+        cbOperation.setItems(FXCollections.observableArrayList("=", "!="));
+        cbOperation.setValue("=");
+        tfValue.setPromptText("String");
+        tfValue.setText("");
+    }
+
+    private void prepareForNumber() {
+        apBoolean.setVisible(false);
+        apNumber.setVisible(true);
+        cbOperation.setItems(FXCollections.observableArrayList(operationChoices));
+        cbOperation.setValue("=");
+        tfValue.setPromptText("Value");
+        tfValue.setText("");
+    }
+
+    private void prepareForBoolean() {
+        apNumber.setVisible(false);
+        apBoolean.setVisible(true);
+    }
+
     public void addRule(ActionEvent actionEvent) {
+
+        if(tfRuleName.getText().isEmpty()) {
+            buttAddRule.setDisable(true);
+            return ;
+        }
+
         if(AdminController.function == Function.ADD){
-            Rule R = new Rule(ruleNameField.getText(), new ArrayList<Statement>(antecedentsTV.getItems()), new ArrayList<Statement>(consequencesTV.getItems()));
+            Rule R = new Rule(tfRuleName.getText(), new ArrayList<Statement>(antecedentsTV.getItems()), new ArrayList<Statement>(consequencesTV.getItems()));
             AdminController.addedRule = R;
         }
         else if(AdminController.function == Function.EDIT){
-            AdminController.editedRule.setName(ruleNameField.getText());
+            AdminController.editedRule.setName(tfRuleName.getText());
             AdminController.editedRule.setAntecedents(new ArrayList<Statement>(antecedentsTV.getItems()));
             AdminController.editedRule.setConsequences(new ArrayList<Statement>(consequencesTV.getItems()));
         }
 
-        Stage s = (Stage) cancelButton.getScene().getWindow();
+        Stage s = (Stage) buttCancel.getScene().getWindow();
         s.close();
     }
 
     public void cancel(ActionEvent actionEvent) {
-        Stage s = (Stage) cancelButton.getScene().getWindow();
+        Stage s = (Stage) buttCancel.getScene().getWindow();
         s.close();
     }
 
     public void addAntecedent(ActionEvent actionEvent) throws Exception {
         Object value = retrieveValue();
-        Statement antecedent = new Statement(varNameField.getText(), typeTable.get(typeCB.getValue()), opTable.get(operationCB.getValue()), value);
+        Statement antecedent = new Statement(
+                tfVarName.getText(),
+                typeTable.get(((RadioButton)(toggleType.getSelectedToggle())).getText()),
+                opTable.get(cbOperation.getValue()), value);
         antecedentsTV.getItems().add(antecedent);
     }
     public void addConsequence(ActionEvent actionEvent) throws Exception {
         Object value = retrieveValue();
-        Statement antecedent = new Statement(varNameField.getText(), typeTable.get(typeCB.getValue()), opTable.get(operationCB.getValue()), value);
-        consequencesTV.getItems().add(antecedent);
+        Statement consequence = new Statement(
+                tfVarName.getText(),
+                typeTable.get(((RadioButton)(toggleType.getSelectedToggle())).getText()),
+                opTable.get(cbOperation.getValue()), value);
+        consequencesTV.getItems().add(consequence);
     }
 
     public void removeStatement(ActionEvent actionEvent) {
@@ -141,16 +250,16 @@ public class AddRuleController {
 
     public Object retrieveValue(){
         Object value = null;
-        if (typeTable.get(typeCB.getValue()) == Type.STRING) {
-            value = valueField.getText();
-        } else if (typeTable.get(typeCB.getValue()) == Type.BOOLEAN) {
-            if (valueField.getText().toLowerCase().equals("true")) {
-                value = true;
-            } else if (valueField.getText().toLowerCase().equals(("false"))) {
-                value = false;
-            }
-        } else if (typeTable.get(typeCB.getValue()) == Type.INTEGER) {
-            value = Integer.parseInt(valueField.getText());
+        Type type = typeTable.get(((RadioButton)(toggleType.getSelectedToggle())).getText());
+
+        if (type == Type.STRING) {
+            value = tfValue.getText();
+        }
+        else if (type == Type.BOOLEAN) {
+            value = rbTrue.isSelected();
+        }
+        else if (type == Type.INTEGER) {
+            value = Integer.parseInt(tfValue.getText());
         }
         return value;
     }
