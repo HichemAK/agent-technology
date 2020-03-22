@@ -131,7 +131,7 @@ public class AddRuleController {
         buttClearAll.setOnAction(this::clear);
         buttRemoveStatement.setOnAction(this::removeStatement);
 
-        
+        tfVarName
     }
 
     private void addListenerToggleType() {
