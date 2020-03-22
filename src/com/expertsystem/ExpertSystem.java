@@ -53,11 +53,13 @@ public class ExpertSystem implements Serializable{
     }
 
     public boolean addKnowledge(Statement s) {
+        // REMOVE from here
         for(Statement sts : this.knowledgeBase) {
             if(s.inferredFrom(sts)) {
                 return false;
             }
         }
+        // to here TODO
         knowledgeBase.add(s);
         return true;
     }

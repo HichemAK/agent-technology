@@ -67,7 +67,8 @@ public class AdminController {
     }
 
     public void optimizeES(ActionEvent actionEvent) {
-
+        ES.removeRedundancies();
+        refresh();
     }
 
     public void programDelete() {
@@ -224,7 +225,6 @@ public class AdminController {
 
         return result.get() == ButtonType.OK;
     }
-
 
 
 }
