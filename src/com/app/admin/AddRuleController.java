@@ -15,6 +15,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+
 import java.util.ArrayList;
 import java.util.Hashtable;
 
@@ -44,8 +45,6 @@ public class AddRuleController {
     private Hashtable<String, Type> typeTable = new Hashtable<>();
     private Hashtable<String, Operation> opTable = new Hashtable<>();
     private String varNameRegex = "^[a-zA-Z_$][a-zA-Z_$0-9]*$";
-
-    private ArrayList<String> possibleWords;
 
     private ObservableList<String> operationChoices = FXCollections.observableArrayList("=", "!=", ">", ">=", "<", "<=");
 
@@ -94,10 +93,8 @@ public class AddRuleController {
             System.out.println("wait what ?");
         }
 
-        // buttAddAntecedents.setDisable(true);
-        // buttAddConsequences.setDisable(true);
-        // buttRemoveStatement.setDisable(true);
-
+        buttAddAntecedents.setDisable(true);
+        buttAddConsequences.setDisable(true);
 
         if(AdminController.function == Function.EDIT && AdminController.editedRule != null){
             editInstead();
@@ -117,6 +114,7 @@ public class AddRuleController {
         buttAddConsequences.setOnAction(actionEvent -> {
             try {
                 addConsequence(actionEvent);
+                checkRuleAdding();
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -124,6 +122,7 @@ public class AddRuleController {
         buttAddAntecedents.setOnAction(actionEvent -> {
             try {
                 addAntecedent(actionEvent);
+                checkRuleAdding();
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -131,7 +130,63 @@ public class AddRuleController {
         buttClearAll.setOnAction(this::clear);
         buttRemoveStatement.setOnAction(this::removeStatement);
 
-        tfVarName
+        tfRuleName.textProperty().addListener((observableValue, s, t1) -> {
+            checkRuleAdding();
+        });
+
+        tfVarName.textProperty().addListener((observableValue, s, t1) -> {
+            checkStatementAdding();
+        });
+
+        tfValue.textProperty().addListener((observableValue, s, t1) -> {
+            checkStatementAdding();
+        });
+    }
+
+    private void disableAdding() {
+        buttAddAntecedents.setDisable(true);
+        buttAddConsequences.setDisable(true);
+    }
+
+    private void enableAdding() {
+        buttAddAntecedents.setDisable(false);
+        buttAddConsequences.setDisable(false);
+    }
+
+    private void checkStatementAdding() {
+        if(validateAdding()) {
+            enableAdding();
+            return;
+        }
+        disableAdding();
+    }
+
+    private void checkRuleAdding() {
+        if(validateTables() && validateRuleName()) {
+            buttAddRule.setDisable(false);
+            return;
+        }
+        buttAddRule.setDisable(true);
+    }
+
+    private boolean validateAdding() {
+        return validateVarName() && validateValue();
+    }
+
+    private boolean validateVarName() {
+        return !tfVarName.getText().isEmpty();
+    }
+
+    private boolean validateValue() {
+        return !rbNumber.isSelected() || !tfValue.getText().isEmpty();
+    }
+
+    private boolean validateTables() {
+        return consequencesTV.getItems().size() > 0 && antecedentsTV.getItems().size() > 0;
+    }
+
+    private boolean validateRuleName() {
+        return !tfRuleName.getText().isEmpty();
     }
 
     private void addListenerToggleType() {
@@ -159,6 +214,7 @@ public class AddRuleController {
                         default:
                             System.out.println("ok... this is weird");
                     }
+                    checkStatementAdding();
                 }
             }
         });
@@ -241,18 +297,22 @@ public class AddRuleController {
         Object selectedItem = antecedentsTV.getSelectionModel().getSelectedItem();
         if(selectedItem != null){
             antecedentsTV.getItems().remove(selectedItem);
-            return;
         }
-        selectedItem = consequencesTV.getSelectionModel().getSelectedItem();
-        if(selectedItem != null){
-            consequencesTV.getItems().remove(selectedItem);
+        else {
+            selectedItem = consequencesTV.getSelectionModel().getSelectedItem();
+            if(selectedItem != null){
+                consequencesTV.getItems().remove(selectedItem);
+            }
         }
 
+        checkRuleAdding();
     }
 
     public void clear(ActionEvent actionEvent) {
         consequencesTV.getItems().clear();
         antecedentsTV.getItems().clear();
+
+        checkRuleAdding();
     }
 
 
