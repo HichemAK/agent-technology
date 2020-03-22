@@ -45,6 +45,8 @@ public class AddRuleController {
     private Hashtable<String, Type> typeTable = new Hashtable<>();
     private Hashtable<String, Operation> opTable = new Hashtable<>();
     private String varNameRegex = "^[a-zA-Z_$][a-zA-Z_$0-9]*$";
+    private String valueIntRegex = "^[0-9]+$";
+
 
     private ObservableList<String> operationChoices = FXCollections.observableArrayList("=", "!=", ">", ">=", "<", "<=");
 
@@ -174,11 +176,11 @@ public class AddRuleController {
     }
 
     private boolean validateVarName() {
-        return !tfVarName.getText().isEmpty();
+        return tfVarName.getText().matches(varNameRegex);
     }
 
     private boolean validateValue() {
-        return !rbNumber.isSelected() || !tfValue.getText().isEmpty();
+        return !rbNumber.isSelected() || tfValue.getText().matches(valueIntRegex);
     }
 
     private boolean validateTables() {

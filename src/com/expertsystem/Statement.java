@@ -1,10 +1,8 @@
 package com.expertsystem;
 
-import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashSet;
 
 public class Statement implements Serializable {
     private String varName;
