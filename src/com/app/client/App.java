@@ -15,7 +15,7 @@ public class App extends javafx.application.Application {
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("client.fxml"));
         primaryStage.setTitle("Vehicle Form");
-        primaryStage.setScene(new Scene(root, 342, 312));
+        primaryStage.setScene(new Scene(root));
 
         primaryStage.show();
     }
