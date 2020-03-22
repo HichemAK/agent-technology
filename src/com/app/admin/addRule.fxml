@@ -3,10 +3,10 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXComboBox?>
 <?import com.jfoenix.controls.JFXRadioButton?>
-<?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -42,11 +42,11 @@
                <children>
                   <HBox alignment="CENTER" maxHeight="70.0" maxWidth="300.0" minHeight="70.0" minWidth="300.0" prefHeight="70.0" prefWidth="300.0" spacing="10.0">
                      <children>
-                        <JFXTextField fx:id="tfRuleName" alignment="CENTER" focusColor="#42acff" prefHeight="26.0" prefWidth="222.0" promptText="Rule Name">
+                        <TextField fx:id="tfRuleName" alignment="CENTER" prefHeight="42.0" prefWidth="226.0" promptText="Rule Name" style="fx-faint-focus-color: transparent; -fx-focus-color: #42acff; -fx-control-inner-background: #f4f4f4; -fx-text-fill: #BEBEBE; -fx-font-weight: bold;">
                            <font>
-                              <Font name="System Bold" size="16.0" />
+                              <Font size="20.0" />
                            </font>
-                        </JFXTextField>
+                        </TextField>
                      </children>
                   </HBox>
                </children>
@@ -90,19 +90,19 @@
                                  <children>
                                     <AnchorPane maxHeight="70.0" maxWidth="210.0" minHeight="70.0" minWidth="210.0" prefHeight="70.0" prefWidth="210.0">
                                        <children>
-                                          <JFXTextField fx:id="tfVarName" focusColor="#42acff" labelFloat="true" layoutX="46.0" layoutY="22.0" prefHeight="26.0" prefWidth="149.0" promptText="Variable Name" />
+                                          <TextField fx:id="tfVarName" layoutX="45.0" layoutY="29.0" prefHeight="26.0" prefWidth="150.0" promptText="Variable Name" style="fx-faint-focus-color: transparent; -fx-focus-color: #42acff; -fx-control-inner-background: #f4f4f4;" />
                                        </children>
                                     </AnchorPane>
                                     <StackPane maxHeight="70.0" maxWidth="290.0" minHeight="70.0" minWidth="290.0" prefHeight="70.0" prefWidth="290.0">
                                        <children>
                                           <AnchorPane fx:id="apNumber" prefHeight="200.0" prefWidth="200.0">
                                              <children>
-                                                <JFXComboBox fx:id="cbOperation" layoutX="14.0" layoutY="22.0" prefHeight="26.0" prefWidth="10.0">
+                                                <JFXComboBox fx:id="cbOperation" layoutX="8.0" layoutY="27.0" prefHeight="26.0" prefWidth="64.0">
                                                    <cursor>
                                                       <Cursor fx:constant="HAND" />
                                                    </cursor>
                                                 </JFXComboBox>
-                                                <JFXTextField fx:id="tfValue" focusColor="#42acff" labelFloat="true" layoutX="92.0" layoutY="22.0" prefHeight="26.0" prefWidth="150.0" promptText="Value" />
+                                                <TextField fx:id="tfValue" layoutX="92.0" layoutY="28.0" prefHeight="26.0" prefWidth="150.0" promptText="Value" style="fx-faint-focus-color: transparent; -fx-focus-color: #42acff; -fx-control-inner-background: #f4f4f4;" />
                                              </children>
                                           </AnchorPane>
                                           <AnchorPane fx:id="apBoolean" prefHeight="200.0" prefWidth="200.0" visible="false">

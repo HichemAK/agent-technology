@@ -12,12 +12,9 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.control.skin.TextFieldSkin;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Hashtable;
 
@@ -97,9 +94,9 @@ public class AddRuleController {
             System.out.println("wait what ?");
         }
 
-        buttAddAntecedents.setDisable(true);
-        buttAddConsequences.setDisable(true);
-        buttRemoveStatement.setDisable(true);
+        // buttAddAntecedents.setDisable(true);
+        // buttAddConsequences.setDisable(true);
+        // buttRemoveStatement.setDisable(true);
 
 
         if(AdminController.function == Function.EDIT && AdminController.editedRule != null){
@@ -115,7 +112,26 @@ public class AddRuleController {
     private void addListeners() {
         addListenerToggleType();
 
+        buttCancel.setOnAction(this::cancel);
+        buttAddRule.setOnAction(this::addRule);
+        buttAddConsequences.setOnAction(actionEvent -> {
+            try {
+                addConsequence(actionEvent);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+        buttAddAntecedents.setOnAction(actionEvent -> {
+            try {
+                addAntecedent(actionEvent);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+        buttClearAll.setOnAction(this::clear);
+        buttRemoveStatement.setOnAction(this::removeStatement);
 
+        
     }
 
     private void addListenerToggleType() {
