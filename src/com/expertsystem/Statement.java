@@ -45,7 +45,7 @@ public class Statement{
         if(!varName.equals(S.varName) || type != S.type){
             return false;
         }
-        if(operation != S.operation){
+        if(operation == S.operation){
             if(S.value.equals(this.value)){
                 return true;
             }
