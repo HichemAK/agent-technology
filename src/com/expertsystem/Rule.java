@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.HashSet;
 
-public class Rule implements Serializable {
+public class Rule{
 
     private String name;
     private HashSet<Statement> antecedents;

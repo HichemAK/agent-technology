@@ -1,9 +1,11 @@
 package com.expertsystem;
 
+import com.google.gson.Gson;
+
 import java.io.*;
 import java.util.HashSet;
 
-public class ExpertSystem implements Serializable{
+public class ExpertSystem{
 
     private HashSet<Rule> rules;
     private HashSet<Statement> knowledgeBase;
@@ -19,25 +21,17 @@ public class ExpertSystem implements Serializable{
         this.knowledgeBase = new HashSet<Statement>();
     }
 
-    public ExpertSystem(String filepath) {
+    public ExpertSystem(String filepath) throws FileNotFoundException {
         /**
          * Loads ExpertSystem from file located at 'filepath'
          */
-        try {
-            FileInputStream fileIn = new FileInputStream(filepath);
-            ObjectInputStream objectIn = new ObjectInputStream(fileIn);
-            ExpertSystem ES = (ExpertSystem) objectIn.readObject();
-            objectIn.close();
-
-            this.knowledgeBase = ES.knowledgeBase;
-            this.rules = ES.rules;
-        }
-        catch (Exception ex) {
-            ex.printStackTrace();
-        }
+        Gson gson = new Gson();
+        ExpertSystem es = gson.fromJson(new FileReader(filepath), ExpertSystem.class);
+        this.knowledgeBase = es.knowledgeBase;
+        this.rules = es.rules;
     }
 
-    public ExpertSystem(File fileES) {
+    public ExpertSystem(File fileES) throws FileNotFoundException {
         /**
          * Loads ExpertSystem from file 'fileES'
          */
@@ -128,19 +122,20 @@ public class ExpertSystem implements Serializable{
         return ret;
     }
 
+
     public void save(String filepath) {
+        Gson gson = new Gson();
         try {
-            FileOutputStream fileOut = new FileOutputStream(filepath);
-            ObjectOutputStream objectOut = new ObjectOutputStream(fileOut);
-            objectOut.writeObject(this);
-            objectOut.close();
-        }
-        catch (Exception ex) {
-            ex.printStackTrace();
+            Writer writer = new FileWriter(filepath);
+            gson.toJson(this, writer);
+            writer.flush(); //flush data to file   <---
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
-    public void save(File file){
+    public void save(File file) throws IOException {
         save(file.getAbsolutePath());
     }
 

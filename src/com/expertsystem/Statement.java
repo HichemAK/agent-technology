@@ -5,7 +5,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
 
-public class Statement implements Serializable {
+public class Statement{
     private String varName;
     private Type type;
     private Operation operation;
@@ -23,15 +23,22 @@ public class Statement implements Serializable {
         if(type == Type.BOOLEAN && operation != Operation.EQ){
             throw new Exception("BOOLEAN type can only support EQ (equal) operation");
         }
+        Object value2;
+        if(value instanceof Integer){
+            value2 = Double.valueOf((Integer)value);
+        }
+        else{
+            value2 = value;
+        }
 
-        if(!value.getClass().isAssignableFrom(type.get())){
+        if(!value2.getClass().isAssignableFrom(type.get())){
             throw new Exception("'value' type must match 'type'");
         }
 
         this.varName = varName;
         this.type = type;
         this.operation = operation;
-        this.value = value;
+        this.value = value2;
     }
 
     public boolean inferredFrom(Statement S){
@@ -44,19 +51,19 @@ public class Statement implements Serializable {
         }
 
         if(operation == Operation.GREAT){
-            return (Integer)S.value > (Integer)this.value;
+            return (Double)S.value > (Double)this.value;
         }
 
         if(operation == Operation.GREAT_EQ){
-            return (Integer)S.value >= (Integer)this.value;
+            return (Double)S.value >= (Double)this.value;
         }
 
         if(operation == Operation.LESS){
-            return (Integer)S.value < (Integer)this.value;
+            return (Double)S.value < (Double)this.value;
         }
 
         if(operation == Operation.LESS_EQ){
-            return (Integer)S.value <= (Integer)this.value;
+            return (Double)S.value <= (Double)this.value;
         }
 
         return false;

@@ -12,7 +12,7 @@ public class Main {
                 new Rule("Bicycle",
                         new HashSet<Statement>(Arrays.asList(
                                 new Statement("vehicleType", Type.STRING, Operation.EQ, "cycle"),
-                                new Statement("num_wheels", Type.INTEGER, Operation.EQ, 2),
+                                new Statement("num_wheels", Type.NUMBER, Operation.EQ, 2),
                                 new Statement("motor", Type.BOOLEAN, Operation.EQ, false)
                         )),
                         new HashSet<Statement>(Arrays.asList(
@@ -21,7 +21,7 @@ public class Main {
         ));
 
         HashSet<Statement> knowledge = new HashSet<>(Arrays.asList(
-                new Statement("num_wheels", Type.INTEGER, Operation.EQ, 2),
+                new Statement("num_wheels", Type.NUMBER, Operation.EQ, 2),
                 new Statement("vehicleType", Type.STRING, Operation.EQ, "cycle"),
                 new Statement("motor", Type.BOOLEAN, Operation.EQ, false)
         ));
@@ -45,9 +45,9 @@ public class Main {
         System.out.println(ES);
 
         Statement[] test = {
-                new Statement("A", Type.INTEGER, Operation.GREAT, 0),
-                new Statement("A", Type.INTEGER, Operation.GREAT, 1),
-                new Statement("A", Type.INTEGER, Operation.GREAT, 2)
+                new Statement("A", Type.NUMBER, Operation.GREAT, 0),
+                new Statement("A", Type.NUMBER, Operation.GREAT, 1),
+                new Statement("A", Type.NUMBER, Operation.GREAT, 2)
         };
 
         System.out.println("Before remove redundancies");

@@ -2,7 +2,7 @@ package com.expertsystem;
 
 public enum Type {
     STRING(String.class),
-    INTEGER(Integer.class),
+    NUMBER(Double.class),
     BOOLEAN(Boolean.class);
 
     private final Class<?> type;

@@ -51,7 +51,7 @@ public class AddRuleController {
     private ObservableList<String> operationChoices = FXCollections.observableArrayList("=", "!=", ">", ">=", "<", "<=");
 
     public void initialize(){
-        typeTable.put("Number", Type.INTEGER);
+        typeTable.put("Number", Type.NUMBER);
         typeTable.put("String", Type.STRING);
         typeTable.put("Boolean", Type.BOOLEAN);
 
@@ -336,7 +336,7 @@ public class AddRuleController {
         else if (type == Type.BOOLEAN) {
             value = rbTrue.isSelected();
         }
-        else if (type == Type.INTEGER) {
+        else if (type == Type.NUMBER) {
             value = Integer.parseInt(tfValue.getText());
         }
         return value;

@@ -64,15 +64,15 @@ public class ClientController {
 
         value = (String)numWheelsCB.getValue() == null ? "" : (String)numWheelsCB.getValue();
         if(value.equals("<4")){
-            knowledge.add(new Statement("num_wheels", Type.INTEGER, Operation.LESS, 4));
+            knowledge.add(new Statement("num_wheels", Type.NUMBER, Operation.LESS, 4));
         }
         else if(!value.isEmpty()){
-            knowledge.add(new Statement("num_wheels", Type.INTEGER, Operation.EQ, Integer.parseInt(value)));
+            knowledge.add(new Statement("num_wheels", Type.NUMBER, Operation.EQ, Integer.parseInt(value)));
         }
 
         value = (String)numDoorsCB.getValue() == null ? "" : (String)numDoorsCB.getValue();
         if(!value.isEmpty()){
-            knowledge.add(new Statement("num_doors", Type.INTEGER, Operation.EQ, Integer.parseInt(value)));
+            knowledge.add(new Statement("num_doors", Type.NUMBER, Operation.EQ, Integer.parseInt(value)));
         }
 
         value = (String)sizeCB.getValue() == null ? "" : (String)sizeCB.getValue();

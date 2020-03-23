@@ -23,6 +23,7 @@ import javafx.stage.Stage;
 
 import javax.swing.*;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -50,9 +51,27 @@ public class AdminController {
     private void prepare(){
         VBox.setVgrow(vbRules, Priority.ALWAYS);
         buttNew.setOnAction(this::newES);
-        buttLoad.setOnAction(this::loadES);
-        buttSave.setOnAction(this::saveES);
-        buttSaveAs.setOnAction(this::saveAsES);
+        buttLoad.setOnAction(actionEvent2 -> {
+            try {
+                loadES(actionEvent2);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+        });
+        buttSave.setOnAction(actionEvent1 -> {
+            try {
+                saveES(actionEvent1);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+        buttSaveAs.setOnAction(actionEvent1 -> {
+            try {
+                saveAsES(actionEvent1);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
         // buttCommit.setOnAction()
         buttOptimize.setOnAction(this::optimizeES);
         buttExit.setOnAction(this::exit);
@@ -99,7 +118,7 @@ public class AdminController {
         });
     }
 
-    public void loadES(javafx.event.ActionEvent actionEvent) {
+    public void loadES(javafx.event.ActionEvent actionEvent) throws FileNotFoundException {
         FileChooser fc = new FileChooser();
         fc.setTitle("Open Expert System File");
         FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Expert System File (*.es)", "*.es");
@@ -112,7 +131,7 @@ public class AdminController {
         }
     }
 
-    public void saveES(javafx.event.ActionEvent actionEvent) {
+    public void saveES(javafx.event.ActionEvent actionEvent) throws IOException {
         if(currentFile != null){
             ES.save(currentFile);
             refresh();
@@ -121,7 +140,7 @@ public class AdminController {
         buttSave.setDisable(true);
     }
 
-    public void saveAsES(javafx.event.ActionEvent actionEvent) {
+    public void saveAsES(javafx.event.ActionEvent actionEvent) throws IOException {
         FileChooser fc = new FileChooser();
         fc.setTitle("Save Expert System File");
         FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Expert System File (*.es)", "*.es");
