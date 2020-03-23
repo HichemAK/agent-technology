@@ -42,29 +42,71 @@ public class Statement{
     }
 
     public boolean inferredFrom(Statement S){
-        if(!varName.equals(S.varName) || type != S.type || operation != S.operation){
+        if(!varName.equals(S.varName) || type != S.type){
             return false;
         }
+        if(operation != S.operation){
+            if(S.value.equals(this.value)){
+                return true;
+            }
 
-        if(S.value.equals(this.value)){
-            return true;
+            if(operation == Operation.GREAT){
+                return (Double)S.value > (Double)this.value;
+            }
+
+            if(operation == Operation.GREAT_EQ){
+                return (Double)S.value >= (Double)this.value;
+            }
+
+            if(operation == Operation.LESS){
+                return (Double)S.value < (Double)this.value;
+            }
+
+            if(operation == Operation.LESS_EQ){
+                return (Double)S.value <= (Double)this.value;
+            }
+        }
+        else{
+            // Not the same operation
+            if(S.operation == Operation.EQ){
+                if(operation == Operation.NEQ){
+                    return !((Double)S.getValue()).equals((Double)getValue());
+                }
+                if(operation == Operation.LESS){
+                    return (Double)S.getValue() < (Double)getValue();
+                }
+                if(operation == Operation.LESS_EQ){
+                    return (Double)S.getValue() <= (Double)getValue();
+                }
+                if(operation == Operation.GREAT){
+                    return (Double)S.getValue() > (Double)getValue();
+                }
+                if(operation == Operation.GREAT_EQ){
+                    return (Double)S.getValue() >= (Double)getValue();
+                }
+            }
+            if(S.operation == Operation.GREAT){
+                if(operation == Operation.NEQ || operation == Operation.GREAT_EQ){
+                    return (Double)S.getValue() >= (Double)getValue();
+                }
+            }
+            if(S.operation == Operation.LESS){
+                if(operation == Operation.NEQ || operation == Operation.LESS_EQ){
+                    return (Double)S.getValue() <= (Double)getValue();
+                }
+            }
+            if(S.operation == Operation.GREAT_EQ){
+                if(operation == Operation.NEQ || operation == Operation.GREAT){
+                    return (Double)S.getValue() > (Double)getValue();
+                }
+            }
+            if(S.operation == Operation.LESS_EQ || S.operation == Operation.LESS){
+                if(operation == Operation.NEQ){
+                    return (Double)S.getValue() < (Double)getValue();
+                }
+            }
         }
 
-        if(operation == Operation.GREAT){
-            return (Double)S.value > (Double)this.value;
-        }
-
-        if(operation == Operation.GREAT_EQ){
-            return (Double)S.value >= (Double)this.value;
-        }
-
-        if(operation == Operation.LESS){
-            return (Double)S.value < (Double)this.value;
-        }
-
-        if(operation == Operation.LESS_EQ){
-            return (Double)S.value <= (Double)this.value;
-        }
 
         return false;
     }
