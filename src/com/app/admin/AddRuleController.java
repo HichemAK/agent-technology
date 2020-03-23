@@ -16,7 +16,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Hashtable;
 
 public class AddRuleController {
@@ -260,13 +260,13 @@ public class AddRuleController {
         }
 
         if(AdminController.function == Function.ADD){
-            Rule R = new Rule(tfRuleName.getText(), new ArrayList<Statement>(antecedentsTV.getItems()), new ArrayList<Statement>(consequencesTV.getItems()));
+            Rule R = new Rule(tfRuleName.getText(), new HashSet<Statement>(antecedentsTV.getItems()), new HashSet<Statement>(consequencesTV.getItems()));
             AdminController.addedRule = R;
         }
         else if(AdminController.function == Function.EDIT){
             AdminController.editedRule.setName(tfRuleName.getText());
-            AdminController.editedRule.setAntecedents(new ArrayList<Statement>(antecedentsTV.getItems()));
-            AdminController.editedRule.setConsequences(new ArrayList<Statement>(consequencesTV.getItems()));
+            AdminController.editedRule.setAntecedents(new HashSet<Statement>(antecedentsTV.getItems()));
+            AdminController.editedRule.setConsequences(new HashSet<Statement>(consequencesTV.getItems()));
         }
 
         Stage s = (Stage) buttCancel.getScene().getWindow();

@@ -1,39 +1,43 @@
 package com.expertsystem;
 
-import com.sun.glass.ui.EventLoop;
-
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.HashSet;
 import java.util.HashSet;
 
 public class Rule implements Serializable {
 
     private String name;
-    private ArrayList<Statement> antecedents;
-    private ArrayList<Statement> consequences;
+    private HashSet<Statement> antecedents;
+    private HashSet<Statement> consequences;
 
-    public Rule(String name, ArrayList<Statement> statements, ArrayList<Statement> consequences) {
+    public Rule(String name, HashSet<Statement> statements, HashSet<Statement> consequences, boolean optimize) {
         this.name = name;
         this.antecedents = statements;
         this.consequences = consequences;
+        if(optimize){
+            removeRedundancies();
+        }
+    }
+
+    public Rule(String name, HashSet<Statement> statements, HashSet<Statement> consequences){
+        this(name, statements, consequences, false);
     }
 
     public Rule(String name) {
         this.name = name;
-        antecedents = new ArrayList<Statement>();
-        consequences = new ArrayList<Statement>();
+        antecedents = new HashSet<Statement>();
+        consequences = new HashSet<Statement>();
     }
 
     public String getName() {
         return name;
     }
 
-    public ArrayList<Statement> getAntecedents() {
+    public HashSet<Statement> getAntecedents() {
         return antecedents;
     }
 
-    public ArrayList<Statement> getConsequences() {
+    public HashSet<Statement> getConsequences() {
         return consequences;
     }
 
@@ -41,11 +45,11 @@ public class Rule implements Serializable {
         this.name = name;
     }
 
-    public void setAntecedents(ArrayList<Statement> antecedents) {
+    public void setAntecedents(HashSet<Statement> antecedents) {
         this.antecedents = antecedents;
     }
 
-    public void setConsequences(ArrayList<Statement> consequences) {
+    public void setConsequences(HashSet<Statement> consequences) {
         this.consequences = consequences;
     }
 
@@ -67,8 +71,8 @@ public class Rule implements Serializable {
         return result.toString();
     }
 
-    public ArrayList<String> antecedentsToString() {
-        ArrayList<String> ret = new ArrayList<String>();
+    public HashSet<String> antecedentsToString() {
+        HashSet<String> ret = new HashSet<String>();
 
         for(Statement s : antecedents) {
             ret.add(s.toString());
@@ -77,8 +81,8 @@ public class Rule implements Serializable {
         return ret;
     }
 
-    public ArrayList<String> consequencesToString() {
-        ArrayList<String> ret = new ArrayList<String>();
+    public HashSet<String> consequencesToString() {
+        HashSet<String> ret = new HashSet<String>();
 
         for(Statement s : consequences) {
             ret.add(s.toString());
@@ -92,11 +96,11 @@ public class Rule implements Serializable {
         consequences = Statement.removeRedundancies(consequences);
     }
 
-    public ArrayList<String> getVarNames() {
+    public HashSet<String> getVarNames() {
         HashSet<String> strs = new HashSet<>();
-        ArrayList<String> ret = new ArrayList<>();
+        HashSet<String> ret = new HashSet<>();
 
-        ArrayList<Statement> sts = getConsequences();
+        HashSet<Statement> sts = getConsequences();
         sts.addAll(getAntecedents());
 
         for(Statement s : sts) {
@@ -108,5 +112,30 @@ public class Rule implements Serializable {
         }
 
         return ret;
+    }
+
+    public boolean appliedFrom(HashSet<Statement> statements){
+        boolean isInferred;
+        for(Statement antecedant : antecedents){
+            isInferred = false;
+            for(Statement s : statements){
+                if(antecedant.inferredFrom(s)){
+                    isInferred = true;
+                    break;
+                }
+            }
+            if(!isInferred){
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public boolean addAntecedent(Statement s){
+        return Statement.addTo(antecedents, s);
+    }
+
+    public boolean addConsequence(Statement s){
+        return Statement.addTo(consequences, s);
     }
 }

@@ -21,6 +21,7 @@ import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 
 public class RuleVBox extends VBox {
 
@@ -29,7 +30,8 @@ public class RuleVBox extends VBox {
     private HBox ifSectionHBox, thenSectionHBox, titleHBox, utilitiesHBox;
     private JFXButton btnEdit, btnDelete;
 
-    private ArrayList<Statement> antecedentsStatements, consequencesStatements;
+    private HashSet<Statement> antecedentsStatements;
+    private HashSet<Statement> consequencesStatements;
     private ArrayList<Label> lblAntecedents, lblConsequences;
 
     private String strRule, strIf, strTHEN, strName;

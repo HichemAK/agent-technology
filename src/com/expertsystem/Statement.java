@@ -3,6 +3,7 @@ package com.expertsystem;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
 
 public class Statement implements Serializable {
     private String varName;
@@ -15,8 +16,12 @@ public class Statement implements Serializable {
             throw new Exception("'varName' must not be empty.");
         }
 
-        if((type == Type.BOOLEAN || type == Type.STRING) && operation != Operation.EQ && operation != Operation.NEQ){
-            throw new Exception("BOOLEAN and STRING type can only support EQ (equal) and NEQ (not equal) operations");
+        if(type == Type.STRING && operation != Operation.EQ && operation != Operation.NEQ){
+            throw new Exception("STRING type can only support EQ (equal) and NEQ (not equal) operations");
+        }
+
+        if(type == Type.BOOLEAN && operation != Operation.EQ){
+            throw new Exception("BOOLEAN type can only support EQ (equal) operation");
         }
 
         if(!value.getClass().isAssignableFrom(type.get())){
@@ -34,28 +39,8 @@ public class Statement implements Serializable {
             return false;
         }
 
-        if(operation == Operation.EQ){
-            if(type == Type.BOOLEAN){
-                return (Boolean)S.value == (Boolean)this.value;
-            }
-            if(type == Type.INTEGER){
-                return (Integer)S.value == (Integer)this.value;
-            }
-            if(type == Type.STRING){
-                return ((String)S.value).equals((String)this.value);
-            }
-        }
-
-        if(operation == Operation.NEQ){
-            if(type == Type.BOOLEAN){
-                return !((Boolean)S.value == (Boolean)this.value);
-            }
-            if(type == Type.INTEGER){
-                return !((Integer)S.value == (Integer)this.value);
-            }
-            if(type == Type.STRING){
-                return !((String)S.value).equals((String)this.value);
-            }
+        if(S.value.equals(this.value)){
+            return true;
         }
 
         if(operation == Operation.GREAT){
@@ -77,14 +62,35 @@ public class Statement implements Serializable {
         return false;
     }
 
-    public static ArrayList<Statement> removeRedundancies(ArrayList<Statement> statements){
-        ArrayList<Statement> result = new ArrayList<>();
-        ArrayList<Statement> toRemove;
+    public static boolean addTo(HashSet<Statement> statements, Statement s){
+        /*
+        Supposing that 'statements' is already optimized
+         */
+        Statement toRemove = null;
+        for(Statement sts : statements) {
+            if(s.inferredFrom(sts)) {
+                return false;
+            }
+            if(sts.inferredFrom(s)){
+                toRemove = sts;
+                break;
+            }
+        }
+        statements.add(s);
+        if(toRemove != null){
+            statements.remove(toRemove);
+        }
+        return true;
+    }
+
+    public static HashSet<Statement> removeRedundancies(HashSet<Statement> statements){
+        HashSet<Statement> result = new HashSet<>();
+        HashSet<Statement> toRemove;
         boolean S1inferS2, S2inferS1;
         for(Statement S1 : statements){
             S1inferS2 = false;
             S2inferS1 = false;
-            toRemove = new ArrayList<>();
+            toRemove = new HashSet<>();
             for(Statement S2 : result){
                 if(S1.inferredFrom(S2)){
                     S2inferS1 = true;

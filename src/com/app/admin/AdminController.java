@@ -78,7 +78,7 @@ public class AdminController {
             butt = ((JFXButton)(((HBox)(((GridPane)(mine.getChildren().get(0))).getChildren().get(1))).getChildren().get(1)));
 
             butt.setOnAction(actionEvent -> {
-                ES.removeRule(ES.getRules().indexOf(mine.getRule()));
+                ES.removeRule(mine.getRule());
                 refresh();
             });
         });

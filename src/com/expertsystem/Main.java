@@ -2,25 +2,25 @@ package com.expertsystem;
 
 import com.sun.glass.ui.Window;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Arrays;
 
 public class Main {
     public static void main(String[] args) throws Exception {
 
-        ArrayList<Rule> rules = new ArrayList<>(Arrays.asList(
+        HashSet<Rule> rules = new HashSet<>(Arrays.asList(
                 new Rule("Bicycle",
-                        new ArrayList<Statement>(Arrays.asList(
+                        new HashSet<Statement>(Arrays.asList(
                                 new Statement("vehicleType", Type.STRING, Operation.EQ, "cycle"),
                                 new Statement("num_wheels", Type.INTEGER, Operation.EQ, 2),
                                 new Statement("motor", Type.BOOLEAN, Operation.EQ, false)
                         )),
-                        new ArrayList<Statement>(Arrays.asList(
+                        new HashSet<Statement>(Arrays.asList(
                                 new Statement("vehicle", Type.STRING, Operation.EQ, "Bicycle")
                         )))
         ));
 
-        ArrayList<Statement> knowledge = new ArrayList<>(Arrays.asList(
+        HashSet<Statement> knowledge = new HashSet<>(Arrays.asList(
                 new Statement("num_wheels", Type.INTEGER, Operation.EQ, 2),
                 new Statement("vehicleType", Type.STRING, Operation.EQ, "cycle"),
                 new Statement("motor", Type.BOOLEAN, Operation.EQ, false)
@@ -32,10 +32,11 @@ public class Main {
 
         System.out.println("=============================BEFORE INFERENCE:=============================");
         System.out.println(ES);
-        ES.infer(goal);
+        System.out.println(ES.infer(goal));
         System.out.println("=============================AFTER INFERENCE:=============================");
         System.out.println(ES);
-        ES.getKnowledgeBase().remove(3);
+
+        ES = new ExpertSystem(rules, knowledge);
         String filepath = "haha.es";
         System.out.println("Saving Expert System...");
         ES.save(filepath);
@@ -54,7 +55,7 @@ public class Main {
             System.out.println(S);
         }
         System.out.println("After remove redundancies");
-        ArrayList<Statement> tested = Statement.removeRedundancies(new ArrayList<Statement>(Arrays.asList(test)));
+        HashSet<Statement> tested = Statement.removeRedundancies(new HashSet<Statement>(Arrays.asList(test)));
         for(Statement S : tested){
             System.out.println(S);
         }

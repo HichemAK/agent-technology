@@ -18,7 +18,7 @@ public class ClientController {
     public ChoiceBox sizeCB;
     public JFXButton evalButton;
     public Label resultLabel;
-    private ExpertSystem ES = new ExpertSystem("vehicles.es");
+    private ExpertSystem ES = new ExpertSystem("haha.es");
 
     private Statement[] possible_results = {
             new Statement("vehicle", Type.STRING, Operation.EQ, "Bicycle"),

@@ -1,21 +1,22 @@
 package com.expertsystem;
 
 import java.io.*;
-import java.util.ArrayList;
+import java.util.HashSet;
 
 public class ExpertSystem implements Serializable{
 
-    private ArrayList<Rule> rules;
-    private ArrayList<Statement> knowledgeBase;
+    private HashSet<Rule> rules;
+    private HashSet<Statement> knowledgeBase;
 
-    public ExpertSystem(ArrayList<Rule> rules, ArrayList<Statement> statements) {
-        this.rules = rules;
-        this.knowledgeBase = statements;
+    public ExpertSystem(HashSet<Rule> rules, HashSet<Statement> statements) {
+        this.rules = new HashSet<>(rules);
+        this.knowledgeBase = new HashSet<>(statements);
+        Statement.removeRedundancies(knowledgeBase);
     }
 
     public ExpertSystem() {
-        this.rules = new ArrayList<Rule>();
-        this.knowledgeBase = new ArrayList<Statement>();
+        this.rules = new HashSet<Rule>();
+        this.knowledgeBase = new HashSet<Statement>();
     }
 
     public ExpertSystem(String filepath) {
@@ -43,24 +44,16 @@ public class ExpertSystem implements Serializable{
         this(fileES.getAbsolutePath());
     }
 
-    public ArrayList<Rule> getRules() {
+    public HashSet<Rule> getRules() {
         return rules;
     }
 
-    public ArrayList<Statement> getKnowledgeBase() {
+    public HashSet<Statement> getKnowledgeBase() {
         return knowledgeBase;
     }
 
     public boolean addKnowledge(Statement s) {
-        // REMOVE from here
-        for(Statement sts : this.knowledgeBase) {
-            if(s.inferredFrom(sts)) {
-                return false;
-            }
-        }
-        // to here TODO
-        knowledgeBase.add(s);
-        return true;
+        return Statement.addTo(knowledgeBase, s);
     }
 
     public void removeRedundancies() {
@@ -80,7 +73,7 @@ public class ExpertSystem implements Serializable{
     }
 
     public void clearKnowledgeBase() {
-        knowledgeBase = new ArrayList<Statement>();
+        knowledgeBase = new HashSet<Statement>();
     }
 
     public boolean addRule(Rule r) {
@@ -88,80 +81,45 @@ public class ExpertSystem implements Serializable{
         return true;
     }
 
-    public boolean removeRule(int index) {
-        if(index < 0 || index >= rules.size()) {
-            return false;
-        }
-
-        rules.remove(index);
+    public boolean removeRule(Rule R) {
+        rules.remove(R);
         return true;
     }
 
     public void clearRules() {
-        rules = new ArrayList<Rule>();
+        rules = new HashSet<Rule>();
     }
 
-    public boolean infer(Statement goal) {
-        ArrayList<Integer> rulesIndexes = getRulesIndexes();
-        ArrayList<Integer> removables = new ArrayList<Integer>();
-        boolean changed = true;
-        boolean result = false;
-        boolean resultRule = true;
-
-        while(true) {
-            for(Statement knowledge : knowledgeBase) {
-                if(goal.inferredFrom(knowledge)) {
-                    return true;
-                }
-            }
-
-            if(rulesIndexes.size() == 0) {
-                return false;
-            }
-
-            if(!changed) {
-                return false;
-            }
-
-            changed = false;
-
-            for(Integer index : rulesIndexes) {
-                Rule currentRule = rules.get(index);
-                resultRule = true;
-
-                ArrayList<Statement> antecedents = currentRule.getAntecedents();
-
-                for(Statement s : antecedents) {
-                    for(Statement k : knowledgeBase) {
-                        result = true;
-                        if(s.inferredFrom(k)) {
-                            break;
+    public boolean infer(Statement goal){
+        HashSet<Rule> remainingRules = new HashSet<>(rules);
+        HashSet<Rule> toRemove;
+        boolean goal_reached = false;
+        boolean canApply = true;
+        while(canApply){
+            toRemove = new HashSet<>();
+            canApply = false;
+            for(Rule r : remainingRules){
+                if(r.appliedFrom(knowledgeBase)){
+                    canApply = true;
+                    for(Statement s : r.getConsequences()){
+                        addKnowledge(s);
+                        if(goal.inferredFrom(s)){
+                            goal_reached = true;
                         }
-                        result = false;
                     }
-                    if(!result) {
-                        resultRule = false;
-                        break;
+                    if(goal_reached){
+                        return true;
                     }
-                }
-
-                if(resultRule) {
-                    for(Statement c : currentRule.getConsequences()) {
-                        this.addKnowledge(c);
-                    }
-
-                    removables.add(rulesIndexes.indexOf(index));
-                    changed = true;
+                    toRemove.add(r);
                 }
             }
-
-            rulesIndexes.removeAll(removables);
+            remainingRules.removeAll(toRemove);
         }
-
+        return false;
     }
 
-    private ArrayList<Integer> getRulesIndexes() {
-        ArrayList<Integer> ret = new ArrayList<Integer>();
+    private HashSet<Integer> getRulesIndexes() {
+        HashSet<Integer> ret = new HashSet<Integer>();
 
         for(int i = 0; i < rules.size(); i++) {
             ret.add(i);
