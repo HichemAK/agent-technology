@@ -1,6 +1,7 @@
 package com.expertsystem;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import java.io.*;
 import java.util.HashSet;
@@ -124,11 +125,11 @@ public class ExpertSystem{
 
 
     public void save(String filepath) {
-        Gson gson = new Gson();
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
         try {
             Writer writer = new FileWriter(filepath);
             gson.toJson(this, writer);
-            writer.flush(); //flush data to file   <---
+            writer.flush();
             writer.close();
         } catch (IOException e) {
             e.printStackTrace();
