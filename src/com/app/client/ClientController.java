@@ -39,7 +39,7 @@ public class ClientController {
         vehicleTypeCB.setItems(FXCollections.observableArrayList("", "Cycle", "Automobile"));
         motorCB.setItems(FXCollections.observableArrayList("", "Yes", "No"));
         numDoorsCB.setItems(FXCollections.observableArrayList("", "2","3","4"));
-        numWheelsCB.setItems(FXCollections.observableArrayList("", "2","3","4","<4"));
+        numWheelsCB.setItems(FXCollections.observableArrayList("", "2","3","4"));
         sizeCB.setItems(FXCollections.observableArrayList("", "Small", "Medium", "Large"));
     }
 
@@ -63,10 +63,7 @@ public class ClientController {
         }
 
         value = (String)numWheelsCB.getValue() == null ? "" : (String)numWheelsCB.getValue();
-        if(value.equals("<4")){
-            knowledge.add(new Statement("num_wheels", Type.NUMBER, Operation.LESS, 4));
-        }
-        else if(!value.isEmpty()){
+        if(!value.isEmpty()){
             knowledge.add(new Statement("num_wheels", Type.NUMBER, Operation.EQ, Integer.parseInt(value)));
         }
 
