@@ -240,7 +240,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </JFXButton>
-                  <JFXButton fx:id="buttExit" buttonType="RAISED" defaultButton="true" prefHeight="34.0" prefWidth="90.0" ripplerFill="WHITE" style="-fx-background-color: #e03d3d;" text="Exit" textFill="#f4f4f4">
+                  <JFXButton fx:id="buttExit" buttonType="RAISED" prefHeight="34.0" prefWidth="90.0" ripplerFill="WHITE" style="-fx-background-color: #e03d3d;" text="Exit" textFill="#f4f4f4">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
@@ -250,7 +250,7 @@
                   </JFXButton>
                </children>
             </HBox>
-            <Label fx:id="lblResult" alignment="CENTER" contentDisplay="CENTER" prefHeight="45.0" prefWidth="210.0" style="-fx-text-alignment: center;" textFill="#42acff" visible="false" wrapText="true" VBox.vgrow="NEVER">
+            <Label fx:id="lblResult" alignment="CENTER" contentDisplay="CENTER" prefHeight="46.0" prefWidth="263.0" style="-fx-text-alignment: center;" textFill="#42acff" visible="false" wrapText="true" VBox.vgrow="NEVER">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
