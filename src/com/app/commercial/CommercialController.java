@@ -79,13 +79,13 @@ public class CommercialController {
 
         addListeners();
 
-        tfBudget.getEventDispatcher();
     }
 
     private void addListeners() {
         addListenerToggleCPU();
         addListenerBudget();
         addListenerExit();
+        addListenerBuy();
     }
 
     private void addListenerToggleCPU() {
@@ -131,6 +131,12 @@ public class CommercialController {
 
     private void addListenerExit() {
         buttExit.setOnAction(this::exit);
+    }
+
+    private void addListenerBuy() {
+        buttBuy.setOnAction(actionEvent -> {
+            
+        });
     }
 
     public void exit(ActionEvent actionEvent){
