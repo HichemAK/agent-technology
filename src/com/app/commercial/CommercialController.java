@@ -8,13 +8,16 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXRadioButton;
+import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.*;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.control.ToggleGroup;
+import com.app.admin.Reusables;
 
 import java.awt.*;
 import java.util.*;
@@ -23,7 +26,7 @@ public class CommercialController {
     @FXML
     public JFXComboBox comboCPU, comboRAM, comboGPU;
     public JFXCheckBox cbKeyboard, cbMouse;
-    public JFXButton buttBuy;
+    public JFXButton buttBuy, buttExit;
 
     public JFXRadioButton rbIntel, rbAMD;
     public JFXRadioButton rbHDD, rbSSD;
@@ -70,8 +73,99 @@ public class CommercialController {
         stock.put("ssd1024", 0);
         stock.put("RAM", 96);
 
+        prepareIntel();
+        prepareRAM();
+        prepareGPU();
+        buttBuy.setDisable(false);
+
+        addListeners();
+
+    }
+
+    private void addListeners() {
+        addListenerToggleCPU();
+        addListenerBudget();
+        addListenerExit();
+        addListenerBuy();
+    }
+
+    private void addListenerToggleCPU() {
+        toggleCPU.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
+            @Override
+            public void changed(ObservableValue<? extends Toggle> observableValue, Toggle toggle, Toggle t1) {
+                RadioButton rb = (RadioButton)toggleCPU.getSelectedToggle();
+
+                if(rb != null) {
+                    String s = rb.getText();
+
+                    switch (s) {
+                        case "Intel":
+                            prepareIntel();
+                            break;
+
+                        case "AMD":
+                            prepareAMD();
+                            break;
+
+                        default:
+                            System.out.println("ok... this is weird");
+                    }
+                }
+            }
+        });
+    }
+
+    private void addListenerBudget() {
+        tfBudget.textProperty().addListener(new ChangeListener<String>() {
+            public void changed(ObservableValue<? extends String> observableValue, String oldValue, String newValue) {
+                if(!Reusables.isNumber(newValue)) {
+                    if(Reusables.isNumber(oldValue)) {
+                        tfBudget.setText(oldValue);
+                    }
+                    else {
+                        tfBudget.setText("");
+                    }
+                }
+            }
+        });
+    }
+
+    private void addListenerExit() {
+        buttExit.setOnAction(this::exit);
+    }
+
+    private void addListenerBuy() {
+        buttBuy.setOnAction(actionEvent -> {
+            
+        });
+    }
+
+    public void exit(ActionEvent actionEvent){
+
+        Platform.exit();
+        System.exit(0);
+    }
+
+    public void prepareIntel() {
+        comboCPU.getItems().clear();
         comboCPU.getItems().addAll(intel_cpus);
+        comboCPU.setValue(comboCPU.getItems().get(0));
+    }
+
+    public void prepareAMD() {
+        comboCPU.getItems().clear();
+        comboCPU.getItems().addAll(amd_cpus);
+        comboCPU.setValue(comboCPU.getItems().get(0));
+    }
+
+    public void prepareRAM() {
+        comboRAM.getItems().clear();
         comboRAM.getItems().addAll(rams);
+        comboRAM.setValue(comboRAM.getItems().get(0));
+    }
+
+    public void prepareGPU() {
+        comboGPU.getItems().add("");
         comboGPU.getItems().addAll(gpus);
     }
 
