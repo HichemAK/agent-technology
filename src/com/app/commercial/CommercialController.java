@@ -7,11 +7,14 @@ import com.expertsystem.Type;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXComboBox;
+import com.jfoenix.controls.JFXRadioButton;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleGroup;
 
 import java.awt.*;
 import java.util.*;
@@ -21,6 +24,14 @@ public class CommercialController {
     public JFXComboBox comboCPU, comboRAM, comboGPU;
     public JFXCheckBox cbKeyboard, cbMouse;
     public JFXButton buttBuy;
+
+    public JFXRadioButton rbIntel, rbAMD;
+    public JFXRadioButton rbHDD, rbSSD;
+    public JFXRadioButton rb256, rb512, rb1TB;
+
+    public ToggleGroup toggleCPU, toggleDisk, toggleGB;
+
+    public TextField tfBudget;
 
     private ExpertSystem ES = new ExpertSystem("PC.es");
     private HashMap<String, Boolean> availability = new HashMap<>();
@@ -56,7 +67,7 @@ public class CommercialController {
 
     public void buy(ActionEvent actionEvent) throws Exception {
         HashSet<Statement> knowledge = new HashSet<Statement>();
-        for(Map.Entry m: availability.entrySet()){
+        for (Map.Entry m : availability.entrySet()) {
             Statement s = new Statement(
                     m.getKey() + "_A",
                     Type.BOOLEAN,
@@ -105,7 +116,6 @@ public class CommercialController {
                 cbKeyboard.isSelected()
         );
         Statement.addTo(knowledge, s);
-
     }
 
 }
