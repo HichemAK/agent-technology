@@ -3,6 +3,7 @@ package com.expertsystem;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.EnumSet;
 import java.util.HashSet;
 
 public class Statement{
@@ -10,6 +11,7 @@ public class Statement{
     private Type type;
     private Operation operation;
     private Object value;
+    private static String regex = "^[0|1|2][a-zA-Z_$][a-zA-Z_$0-9]* [=|<|<=|!=|>|>=] .*$";
 
     public Statement(String varName, Type type, Operation operation, Object value) throws Exception {
         if(varName.length() == 0){
@@ -39,6 +41,24 @@ public class Statement{
         this.type = type;
         this.operation = operation;
         this.value = value2;
+    }
+
+    public Statement(String str) throws Exception {
+        if(!str.matches(regex)){
+            throw new Exception("The given String does not match the statement regular expression");
+        }
+        Operation op;
+        Type type;
+        Object value;
+        if(str.charAt(0) == '0'){
+            type = Type.NUMBER;
+        }
+        else if(str.charAt(0) == '1'){
+            type = Type.BOOLEAN;
+        }
+        else if(str.charAt(0) == '2'){
+            type = Type.STRING;
+        }
     }
 
     public boolean inferredFrom(Statement S){

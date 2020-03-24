@@ -86,6 +86,11 @@ public class ExpertSystem{
     }
 
     public boolean infer(Statement goal){
+        for(Statement s : knowledgeBase){
+            if(goal.inferredFrom(s)){
+                return true;
+            }
+        }
         HashSet<Rule> remainingRules = new HashSet<>(rules);
         HashSet<Rule> toRemove;
         boolean goal_reached = false;
