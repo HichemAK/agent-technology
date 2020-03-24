@@ -43,7 +43,7 @@ public class CommercialController {
     private ArrayList<String> amd_cpus = new ArrayList<>(Arrays.asList("None", "Ryzen3", "Ryzen5", "Ryzen7"));
     private ArrayList<String> intel_cpus = new ArrayList<>(Arrays.asList("None", "Pentium", "DualCore", "i3", "i5", "i7"));
     private ArrayList<String> gpus = new ArrayList<>(Arrays.asList("None", "RTX", "GTX", "Radeon", "Titan"));
-    private ArrayList<String> rams = new ArrayList<>(Arrays.asList("0", "1", "2", "4", "8", "12", "16", "32", "64", "128"));
+    private ArrayList<String> rams = new ArrayList<>(Arrays.asList("0", "1", "2", "4", "8", "12", "16", "24", "32", "64", "128"));
     private HashMap<String, Integer> price = new HashMap<>();
 
     public CommercialController() throws Exception {
@@ -74,6 +74,27 @@ public class CommercialController {
         stock.put("ssd512", 8);
         stock.put("ssd1024", 0);
         stock.put("RAM", 96);
+
+        price.put("Ryzen3", 16000);
+        price.put("Ryzen5", 20000);
+        price.put("Ryzen7", 50000);
+        price.put("Pentium", 4000);
+        price.put("DualCore", 7000);
+        price.put("i3", 12000);
+        price.put("i5", 22000);
+        price.put("RTX", 120000);
+        price.put("GTX", 50000);
+        price.put("Radeon", 30000);
+        price.put("Titan", 230000);
+        price.put("mouse", 1000);
+        price.put("keyboard", 1200);
+        price.put("hdd256", 2500);
+        price.put("hdd512", 5100);
+        price.put("hdd1024", 8000);
+        price.put("ssd256", 7000);
+        price.put("ssd512", 12000);
+        price.put("ssd1024", 30000);
+        price.put("RAM", 1000);
 
         prepareIntel();
         prepareRAM();
@@ -226,12 +247,26 @@ public class CommercialController {
     }
 
     public void buy(ActionEvent actionEvent) throws Exception {
-        HashMap<String, Boolean> availability = new HashMap<>();
-        for(Map.Entry m : stock.entrySet()){
-            if(!m.getKey().equals("RAM") && !m.getKey().equals("hdd"));
+        if(tfBudget.getText().isEmpty()){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("Please fill the budget field");
+            alert.showAndWait();
+            return;
         }
+
+        HashMap<String, Boolean> availability = new HashMap<>();
+        //HashSet<String> specialCases = new HashSet<>(Arrays.asList("hdd256", "hdd512", "hdd1024", "ssd256", "ssd512", "ssd1024", "RAM"));
+        HashSet<String> specialCases = new HashSet<>(Arrays.asList("RAM"));
+        for(Map.Entry m : stock.entrySet()){
+            if(!specialCases.contains(m.getKey())){
+                availability.put((String) m.getKey(), (Integer)(m.getValue()) > 0);
+            }
+        }
+        availability.put("RAM_A", stock.get("RAM") > Integer.parseInt((String) comboRAM.getSelectionModel().getSelectedItem()));
+        // HDD SSD etc...
         HashSet<Statement> knowledge = new HashSet<Statement>();
-        for (Map.Entry m : stock.entrySet()) {
+        for (Map.Entry m : availability.entrySet()) {
             Statement s = new Statement(
                     m.getKey() + "_A",
                     Type.BOOLEAN,
@@ -280,6 +315,37 @@ public class CommercialController {
                 cbKeyboard.isSelected()
         );
         Statement.addTo(knowledge, s);
+
+        s = new Statement(
+                "hard_drive_buy",
+                Type.BOOLEAN,
+                Operation.EQ,
+                true
+        );
+        Statement.addTo(knowledge, s);
+
+        s = new Statement(
+                "enough_budget",
+                Type.BOOLEAN,
+                Operation.EQ,
+                calculatePrice() > Integer.parseInt(tfBudget.getText())
+        );
+        Statement.addTo(knowledge, s);
+
+        Statement goal = new Statement(
+                "purchase_possible",
+                Type.BOOLEAN,
+                Operation.EQ,
+                true
+        );
+        if(ES.infer(goal)){
+            lblResult.setText("Your order has been registered successfully. A parcel will arrive in 5 days.");
+            lblResult.setVisible(true);
+        }
+        else{
+            lblResult.setText("Your command");
+        }
+
     }
 
 }
