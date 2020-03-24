@@ -325,6 +325,21 @@ public class CommercialController {
                 calculatePrice() > Integer.parseInt(tfBudget.getText())
         );
         Statement.addTo(knowledge, s);
+
+        Statement goal = new Statement(
+                "purchase_possible",
+                Type.BOOLEAN,
+                Operation.EQ,
+                true
+        );
+        if(ES.infer(goal)){
+            lblResult.setText("Your order has been registered successfully. A parcel will arrive in 5 days.");
+            lblResult.setVisible(true);
+        }
+        else{
+            lblResult.setText("Your command");
+        }
+
     }
 
 }
