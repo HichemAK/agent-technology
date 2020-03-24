@@ -105,6 +105,11 @@ public class Statement{
                     return (Double)S.getValue() >= (Double)getValue();
                 }
             }
+            if(S.operation == Operation.NEQ){
+                if(operation == Operation.EQ && type == Type.BOOLEAN){
+                    return ((Boolean)S.getValue()).equals(!(Boolean)getValue());
+                }
+            }
             if(S.operation == Operation.GREAT){
                 if(operation == Operation.NEQ || operation == Operation.GREAT_EQ){
                     return (Double)S.getValue() >= (Double)getValue();
