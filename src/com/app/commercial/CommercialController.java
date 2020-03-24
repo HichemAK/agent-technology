@@ -36,6 +36,8 @@ public class CommercialController {
 
     public TextField tfBudget;
 
+    private String clrBlue, clrRed, clrBlack;
+
     private ExpertSystem ES = new ExpertSystem("PC.es");
     private HashMap<String, Integer> stock = new HashMap<>();
     private ArrayList<String> amd_cpus = new ArrayList<>(Arrays.asList("None", "Ryzen3", "Ryzen5", "Ryzen7"));
@@ -48,6 +50,10 @@ public class CommercialController {
     }
 
     public void initialize(){
+        clrBlack = "#000000";
+        clrBlue = "#42acff";
+        clrRed = "#e03d3d";
+        
         stock.put("Ryzen3", 10);
         stock.put("Ryzen5", 0);
         stock.put("Ryzen7", 8);
