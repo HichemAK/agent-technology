@@ -33,7 +33,7 @@
             </Label>
             <HBox alignment="CENTER" prefHeight="18.0" prefWidth="360.0" spacing="20.0">
                <children>
-                  <JFXRadioButton selected="true" style="-jfx-selected-color: #42acff;" text="Intel">
+                  <JFXRadioButton fx:id="rbIntel" selected="true" style="-jfx-selected-color: #42acff;" text="Intel">
                      <toggleGroup>
                         <ToggleGroup fx:id="toggleCPU" />
                      </toggleGroup>
@@ -41,7 +41,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </JFXRadioButton>
-                  <JFXRadioButton style="-jfx-selected-color: #42acff;" text="AMD" toggleGroup="$toggleCPU">
+                  <JFXRadioButton fx:id="rbAMD" style="-jfx-selected-color: #42acff;" text="AMD" toggleGroup="$toggleCPU">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
