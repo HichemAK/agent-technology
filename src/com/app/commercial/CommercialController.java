@@ -18,6 +18,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import com.app.admin.Reusables;
+import javafx.scene.paint.Paint;
 
 import java.awt.*;
 import java.util.*;
@@ -35,6 +36,8 @@ public class CommercialController {
     public ToggleGroup toggleCPU, toggleDisk, toggleGB;
 
     public TextField tfBudget;
+
+    public Label lblResult;
 
     private String clrBlue, clrRed, clrBlack;
 
@@ -338,14 +341,17 @@ public class CommercialController {
                 Operation.EQ,
                 true
         );
+
         if(ES.infer(goal)){
-            lblResult.setText("Your order has been registered successfully. A parcel will arrive in 5 days.");
-            lblResult.setVisible(true);
+            lblResult.setText("Your order has been registered successfully! A parcel will arrive in 5 days");
+            lblResult.setTextFill(Paint.valueOf(clrBlue));
         }
         else{
-            lblResult.setText("Your command");
+            lblResult.setText("Sorry, we were unable to fulfill the wishes of your command");
+            lblResult.setTextFill(Paint.valueOf(clrRed));
         }
 
+        lblResult.setVisible(true);
     }
 
 }

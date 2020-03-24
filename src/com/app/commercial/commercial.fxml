@@ -250,6 +250,11 @@
                   </JFXButton>
                </children>
             </HBox>
+            <Label fx:id="lblResult" alignment="CENTER" contentDisplay="CENTER" prefHeight="45.0" prefWidth="210.0" style="-fx-text-alignment: center;" textFill="#42acff" visible="false" wrapText="true" VBox.vgrow="NEVER">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Label>
          </children>
          <padding>
             <Insets left="10.0" right="10.0" top="10.0" />
