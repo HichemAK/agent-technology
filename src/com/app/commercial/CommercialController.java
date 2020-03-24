@@ -153,37 +153,91 @@ public class CommercialController {
 
     private void addListenerBuy() {
         buttBuy.setOnAction(actionEvent -> {
-            
+            try {
+                buy(actionEvent);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         });
     }
 
-    public void exit(ActionEvent actionEvent){
+    private void exit(ActionEvent actionEvent){
 
         Platform.exit();
         System.exit(0);
     }
 
-    public void prepareIntel() {
+    private void prepareIntel() {
         comboCPU.getItems().clear();
         comboCPU.getItems().addAll(intel_cpus);
         comboCPU.setValue(comboCPU.getItems().get(0));
     }
 
-    public void prepareAMD() {
+    private void prepareAMD() {
         comboCPU.getItems().clear();
         comboCPU.getItems().addAll(amd_cpus);
         comboCPU.setValue(comboCPU.getItems().get(0));
     }
 
-    public void prepareRAM() {
+    private void prepareRAM() {
         comboRAM.getItems().clear();
         comboRAM.getItems().addAll(rams);
         comboRAM.setValue(comboRAM.getItems().get(0));
     }
 
-    public void prepareGPU() {
+    private void prepareGPU() {
         comboGPU.getItems().add("");
         comboGPU.getItems().addAll(gpus);
+    }
+
+    private double calculatePrice() {
+        double finalPrice = 0;
+
+        finalPrice += price.get(comboCPU.getValue());
+        finalPrice += price.get("ram") * (Integer) comboRAM.getValue();
+        finalPrice += price.get(comboGPU.getValue());
+        finalPrice += getDiskValue();
+
+        return finalPrice;
+    }
+
+    private double getDiskValue() {
+
+        String type = ((RadioButton)(toggleDisk.getSelectedToggle())).getText();
+        String capacity = ((RadioButton)(toggleGB.getSelectedToggle())).getText();
+
+        switch(type) {
+            case "HDD":
+                switch(capacity) {
+                    case "256GB":
+                        return price.get("hdd256");
+                    case "512GB":
+                        return price.get("hdd512");
+                    case "1TB":
+                        return price.get("hdd1024");
+                    default:
+                        System.out.println("capacity... HDD");
+                }
+                break;
+
+            case "SSD":
+                switch(capacity) {
+                    case "256GB":
+                        return price.get("ssd256");
+                    case "512GB":
+                        return price.get("ssd512");
+                    case "1TB":
+                        return price.get("ssd1024");
+                    default:
+                        System.out.println("capacity... SSD");
+                }
+                break;
+
+            default:
+                System.out.println("capacity... ALL");
+        }
+
+        return 0;
     }
 
     public void buy(ActionEvent actionEvent) throws Exception {
@@ -271,7 +325,6 @@ public class CommercialController {
                 calculatePrice() > Integer.parseInt(tfBudget.getText())
         );
         Statement.addTo(knowledge, s);
-
     }
 
 }
