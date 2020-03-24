@@ -75,7 +75,7 @@
                         <Insets />
                      </opaqueInsets>
                      <children>
-                        <JFXComboBox fx:id="comboCPU" editable="true" focusColor="#42acff" prefHeight="26.0" prefWidth="160.0">
+                        <JFXComboBox fx:id="comboCPU" focusColor="#42acff" prefHeight="26.0" prefWidth="160.0">
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor>
