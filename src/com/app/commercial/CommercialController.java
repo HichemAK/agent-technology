@@ -195,8 +195,8 @@ public class CommercialController {
     }
 
     private void prepareGPU() {
-        comboGPU.getItems().add("");
         comboGPU.getItems().addAll(gpus);
+        comboGPU.setValue(comboGPU.getItems().get(0));
     }
 
     private double calculatePrice() {
