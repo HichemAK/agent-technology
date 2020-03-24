@@ -337,7 +337,8 @@ public class CommercialController {
             lblResult.setVisible(true);
         }
         else{
-            lblResult.setText("Your command");
+            lblResult.setText("Your order is not possible");
+            lblResult.setVisible(true);
         }
 
     }
