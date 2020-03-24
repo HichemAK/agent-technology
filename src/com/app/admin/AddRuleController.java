@@ -275,20 +275,28 @@ public class AddRuleController {
     }
 
     public void addAntecedent(ActionEvent actionEvent) throws Exception {
-        Object value = retrieveValue();
-        Statement antecedent = new Statement(
-                tfVarName.getText(),
-                typeTable.get(((RadioButton)(toggleType.getSelectedToggle())).getText()),
-                opTable.get(cbOperation.getValue()), value);
-        antecedentsTV.getItems().add(antecedent);
+        antecedentsTV.getItems().add(retriveStatement());
     }
     public void addConsequence(ActionEvent actionEvent) throws Exception {
+        consequencesTV.getItems().add(retriveStatement());
+    }
+
+    private Statement retriveStatement() throws Exception {
         Object value = retrieveValue();
-        Statement consequence = new Statement(
+        Operation operation = null;
+        Type type = typeTable.get(((RadioButton)(toggleType.getSelectedToggle())).getText());
+        if(type == Type.BOOLEAN){
+            operation = Operation.EQ;
+        }
+        else{
+            operation = opTable.get(cbOperation.getValue());
+        }
+        Statement statement = new Statement(
                 tfVarName.getText(),
-                typeTable.get(((RadioButton)(toggleType.getSelectedToggle())).getText()),
-                opTable.get(cbOperation.getValue()), value);
-        consequencesTV.getItems().add(consequence);
+                type,
+                operation,
+                value);
+        return statement;
     }
 
     public void removeStatement(ActionEvent actionEvent) {
