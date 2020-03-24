@@ -90,7 +90,7 @@ public class Statement{
             // Not the same operation
             if(S.operation == Operation.EQ){
                 if(operation == Operation.NEQ){
-                    return !((Double)S.getValue()).equals((Double)getValue());
+                    return !(S.getValue()).equals(getValue());
                 }
                 if(operation == Operation.LESS){
                     return (Double)S.getValue() < (Double)getValue();

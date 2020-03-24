@@ -269,7 +269,7 @@ public class CommercialController {
                 availability.put((String) m.getKey(), (Integer)(m.getValue()) > 0);
             }
         }
-        availability.put("RAM_A", stock.get("RAM") > Integer.parseInt((String) comboRAM.getSelectionModel().getSelectedItem()));
+        availability.put("RAM", stock.get("RAM") > Integer.parseInt((String) comboRAM.getSelectionModel().getSelectedItem()));
         // HDD SSD etc...
         HashSet<Statement> knowledge = new HashSet<Statement>();
         for (Map.Entry m : availability.entrySet()) {
@@ -334,7 +334,7 @@ public class CommercialController {
                 "enough_budget",
                 Type.BOOLEAN,
                 Operation.EQ,
-                calculatePrice() > Integer.parseInt(tfBudget.getText())
+                calculatePrice() <= Double.parseDouble(tfBudget.getText())
         );
         Statement.addTo(knowledge, s);
 
@@ -345,6 +345,9 @@ public class CommercialController {
                 true
         );
 
+        ES.getKnowledgeBase().addAll(knowledge);
+
+        System.out.println(ES.getKnowledgeBase());
         if(ES.infer(goal)){
             lblResult.setText("Your order has been registered successfully! A parcel will arrive in 5 days");
             lblResult.setTextFill(Paint.valueOf(clrBlue));
@@ -353,7 +356,7 @@ public class CommercialController {
             lblResult.setText("Sorry, we were unable to fulfill the wishes of your command");
             lblResult.setTextFill(Paint.valueOf(clrRed));
         }
-
+        System.out.println(ES.getKnowledgeBase());
         lblResult.setVisible(true);
     }
 
