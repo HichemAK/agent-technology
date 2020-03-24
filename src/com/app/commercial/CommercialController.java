@@ -47,10 +47,6 @@ public class CommercialController {
     public CommercialController() throws Exception {
     }
 
-    public void changeBrandCPU(){
-
-    }
-
     public void initialize(){
         stock.put("Ryzen3", 10);
         stock.put("Ryzen5", 0);
