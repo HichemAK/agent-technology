@@ -188,7 +188,9 @@ public class AddRuleController {
     }
 
     private boolean validateRuleName() {
-        return !tfRuleName.getText().isEmpty();
+        return true;
+        // If rule name must not be empty replace with this : 
+        //return !tfRuleName.getText().isEmpty();
     }
 
     private void addListenerToggleType() {
