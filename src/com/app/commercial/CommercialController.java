@@ -209,6 +209,12 @@ public class CommercialController {
         finalPrice += price.get("RAM") * Integer.parseInt((String) comboRAM.getValue());
         finalPrice += price.get(comboGPU.getValue());
         finalPrice += getDiskValue();
+        if(cbKeyboard.isSelected()){
+            finalPrice += price.get("keyboard");
+        }
+        if(cbMouse.isSelected()){
+            finalPrice += price.get("mouse");
+        }
 
         return finalPrice;
     }
@@ -345,8 +351,10 @@ public class CommercialController {
                 true
         );
 
-        ES.getKnowledgeBase().addAll(knowledge);
-
+        ES.clearKnowledgeBase();
+        for(Statement S : knowledge){
+            ES.addKnowledge(S);
+        }
         System.out.println(ES.getKnowledgeBase());
         if(ES.infer(goal)){
             lblResult.setText("Your order has been registered successfully! A parcel will arrive in 5 days");
