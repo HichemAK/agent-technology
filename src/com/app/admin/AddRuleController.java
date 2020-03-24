@@ -189,8 +189,8 @@ public class AddRuleController {
 
     private boolean validateRuleName() {
         return true;
-        // If rule name must not be empty replace with this : 
-        //return !tfRuleName.getText().isEmpty();
+        // If rule name must not be empty replace with this :
+        //return !tfRuleName.getText().isEmpty();Fbutt
     }
 
     private void addListenerToggleType() {
@@ -255,12 +255,6 @@ public class AddRuleController {
     }
 
     public void addRule(ActionEvent actionEvent) {
-
-        if(tfRuleName.getText().isEmpty()) {
-            buttAddRule.setDisable(true);
-            return ;
-        }
-
         if(AdminController.function == Function.ADD){
             Rule R = new Rule(tfRuleName.getText(), new HashSet<Statement>(antecedentsTV.getItems()), new HashSet<Statement>(consequencesTV.getItems()));
             AdminController.addedRule = R;
