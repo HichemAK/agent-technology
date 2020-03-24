@@ -38,10 +38,11 @@ public class CommercialController {
 
     private ExpertSystem ES = new ExpertSystem("PC.es");
     private HashMap<String, Boolean> availability = new HashMap<>();
-    private ArrayList<String> amd_cpus = new ArrayList<>(Arrays.asList("Ryzen3", "Ryzen5", "Ryzen7"));
-    private ArrayList<String> intel_cpus = new ArrayList<>(Arrays.asList("Pentium", "DualCore", "i3", "i5", "i7"));
-    private ArrayList<String> gpus = new ArrayList<>(Arrays.asList("RTX", "GTX", "Radeon", "Titan"));
+    private ArrayList<String> amd_cpus = new ArrayList<>(Arrays.asList("None", "Ryzen3", "Ryzen5", "Ryzen7"));
+    private ArrayList<String> intel_cpus = new ArrayList<>(Arrays.asList("None", "Pentium", "DualCore", "i3", "i5", "i7"));
+    private ArrayList<String> gpus = new ArrayList<>(Arrays.asList("None", "RTX", "GTX", "Radeon", "Titan"));
     private ArrayList<String> rams = new ArrayList<>(Arrays.asList("0", "1", "2", "4", "8", "12", "16", "32", "64", "128"));
+    private int ram = 96;
 
     public CommercialController() throws Exception {
     }
@@ -62,6 +63,14 @@ public class CommercialController {
         availability.put("GTX", true);
         availability.put("Radeon", true);
         availability.put("Titan", false);
+        availability.put("mouse", true);
+        availability.put("keyboard", true);
+        availability.put("hdd256", false);
+        availability.put("hdd512", false);
+        availability.put("hdd1024", true);
+        availability.put("ssd256", true);
+        availability.put("ssd512", true);
+        availability.put("ssd1024", false);
 
         prepareIntel();
         prepareRAM();
@@ -204,6 +213,8 @@ public class CommercialController {
                 cbKeyboard.isSelected()
         );
         Statement.addTo(knowledge, s);
+
+
     }
 
 }

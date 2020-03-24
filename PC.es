@@ -1,83 +1,21 @@
 {
   "rules": [
     {
-      "name": "i7_A",
+      "name": "RAM limit Motherboard",
       "antecedents": [
         {
-          "varName": "CPU",
-          "type": "STRING",
-          "operation": "EQ",
-          "value": "i7"
-        },
-        {
-          "varName": "i7_A",
-          "type": "BOOLEAN",
-          "operation": "EQ",
-          "value": true
+          "varName": "RAM",
+          "type": "NUMBER",
+          "operation": "LESS_EQ",
+          "value": 64.0
         }
       ],
       "consequences": [
         {
-          "varName": "CPU_A",
+          "varName": "MB_RAM_limit_exceeded",
           "type": "BOOLEAN",
           "operation": "EQ",
-          "value": true
-        }
-      ]
-    },
-    {
-      "name": "Ryzen3_A",
-      "antecedents": [
-        {
-          "varName": "Ryzen3_A",
-          "type": "BOOLEAN",
-          "operation": "EQ",
-          "value": true
-        },
-        {
-          "varName": "CPU",
-          "type": "STRING",
-          "operation": "EQ",
-          "value": "Ryzen3"
-        }
-      ],
-      "consequences": [
-        {
-          "varName": "CPU_A",
-          "type": "BOOLEAN",
-          "operation": "EQ",
-          "value": true
-        }
-      ]
-    },
-    {
-      "name": "Purchase Possible",
-      "antecedents": [
-        {
-          "varName": "enough_budget",
-          "type": "BOOLEAN",
-          "operation": "EQ",
-          "value": true
-        },
-        {
-          "varName": "buildable",
-          "type": "BOOLEAN",
-          "operation": "EQ",
-          "value": true
-        },
-        {
-          "varName": "availability",
-          "type": "BOOLEAN",
-          "operation": "EQ",
-          "value": true
-        }
-      ],
-      "consequences": [
-        {
-          "varName": "purchase_possible",
-          "type": "BOOLEAN",
-          "operation": "EQ",
-          "value": true
+          "value": false
         }
       ]
     },
@@ -99,32 +37,7 @@
       ],
       "consequences": [
         {
-          "varName": "GPU_A",
-          "type": "BOOLEAN",
-          "operation": "EQ",
-          "value": true
-        }
-      ]
-    },
-    {
-      "name": "Ryzen5_A",
-      "antecedents": [
-        {
-          "varName": "CPU",
-          "type": "STRING",
-          "operation": "EQ",
-          "value": "Ryzen5"
-        },
-        {
-          "varName": "Ryzen5_A",
-          "type": "BOOLEAN",
-          "operation": "EQ",
-          "value": true
-        }
-      ],
-      "consequences": [
-        {
-          "varName": "CPU_A",
+          "varName": "GPU_A_OK",
           "type": "BOOLEAN",
           "operation": "EQ",
           "value": true
@@ -149,7 +62,119 @@
       ],
       "consequences": [
         {
-          "varName": "CPU_A",
+          "varName": "CPU_A_OK",
+          "type": "BOOLEAN",
+          "operation": "EQ",
+          "value": true
+        }
+      ]
+    },
+    {
+      "name": "RAM limit DualCore",
+      "antecedents": [
+        {
+          "varName": "CPU",
+          "type": "STRING",
+          "operation": "EQ",
+          "value": "DualCore"
+        },
+        {
+          "varName": "RAM",
+          "type": "NUMBER",
+          "operation": "LESS_EQ",
+          "value": 4.0
+        }
+      ],
+      "consequences": [
+        {
+          "varName": "CPU_RAM_limit_exceeded",
+          "type": "BOOLEAN",
+          "operation": "EQ",
+          "value": false
+        }
+      ]
+    },
+    {
+      "name": "DualCore_A",
+      "antecedents": [
+        {
+          "varName": "DualCore_A",
+          "type": "BOOLEAN",
+          "operation": "EQ",
+          "value": true
+        },
+        {
+          "varName": "CPU",
+          "type": "STRING",
+          "operation": "EQ",
+          "value": "DualCore"
+        }
+      ],
+      "consequences": [
+        {
+          "varName": "CPU_A_OK",
+          "type": "BOOLEAN",
+          "operation": "EQ",
+          "value": true
+        }
+      ]
+    },
+    {
+      "name": "Buildable",
+      "antecedents": [
+        {
+          "varName": "hard_drive_buy",
+          "type": "BOOLEAN",
+          "operation": "EQ",
+          "value": true
+        },
+        {
+          "varName": "CPU_RAM_limit_exceeded",
+          "type": "BOOLEAN",
+          "operation": "EQ",
+          "value": false
+        },
+        {
+          "varName": "MB_RAM_limit_exceeded",
+          "type": "BOOLEAN",
+          "operation": "EQ",
+          "value": false
+        },
+        {
+          "varName": "RAM",
+          "type": "NUMBER",
+          "operation": "GREAT",
+          "value": 0.0
+        },
+        {
+          "varName": "CPU",
+          "type": "STRING",
+          "operation": "NEQ",
+          "value": "None"
+        }
+      ],
+      "consequences": [
+        {
+          "varName": "buildable",
+          "type": "BOOLEAN",
+          "operation": "EQ",
+          "value": true
+        }
+      ]
+    },
+    {
+      "name": "CPUNone",
+      "antecedents": [
+        {
+          "varName": "CPU",
+          "type": "STRING",
+          "operation": "EQ",
+          "value": "None"
+        }
+      ],
+      "consequences": [
+        {
+          "varName": "CPU_A_OK",
           "type": "BOOLEAN",
           "operation": "EQ",
           "value": true
@@ -160,7 +185,132 @@
       "name": "i3_A",
       "antecedents": [
         {
+          "varName": "CPU",
+          "type": "STRING",
+          "operation": "EQ",
+          "value": "i3"
+        },
+        {
           "varName": "i3_A",
+          "type": "BOOLEAN",
+          "operation": "EQ",
+          "value": true
+        }
+      ],
+      "consequences": [
+        {
+          "varName": "CPU_A_OK",
+          "type": "BOOLEAN",
+          "operation": "EQ",
+          "value": true
+        }
+      ]
+    },
+    {
+      "name": "mouseYes",
+      "antecedents": [
+        {
+          "varName": "mouse_A",
+          "type": "BOOLEAN",
+          "operation": "EQ",
+          "value": true
+        },
+        {
+          "varName": "mouse",
+          "type": "BOOLEAN",
+          "operation": "EQ",
+          "value": true
+        }
+      ],
+      "consequences": [
+        {
+          "varName": "mouse_A_OK",
+          "type": "BOOLEAN",
+          "operation": "EQ",
+          "value": true
+        }
+      ]
+    },
+    {
+      "name": "RAM limit Pentium",
+      "antecedents": [
+        {
+          "varName": "CPU",
+          "type": "STRING",
+          "operation": "EQ",
+          "value": "Pentium"
+        },
+        {
+          "varName": "RAM",
+          "type": "NUMBER",
+          "operation": "LESS_EQ",
+          "value": 4.0
+        }
+      ],
+      "consequences": [
+        {
+          "varName": "CPU_RAM_limit_exceeded",
+          "type": "BOOLEAN",
+          "operation": "EQ",
+          "value": false
+        }
+      ]
+    },
+    {
+      "name": "i5_A",
+      "antecedents": [
+        {
+          "varName": "CPU",
+          "type": "STRING",
+          "operation": "EQ",
+          "value": "i5"
+        },
+        {
+          "varName": "i5_A",
+          "type": "BOOLEAN",
+          "operation": "EQ",
+          "value": true
+        }
+      ],
+      "consequences": [
+        {
+          "varName": "CPU_A_OK",
+          "type": "BOOLEAN",
+          "operation": "EQ",
+          "value": true
+        }
+      ]
+    },
+    {
+      "name": "Ryzen3_A",
+      "antecedents": [
+        {
+          "varName": "CPU",
+          "type": "STRING",
+          "operation": "EQ",
+          "value": "Ryzen3"
+        },
+        {
+          "varName": "Ryzen3_A",
+          "type": "BOOLEAN",
+          "operation": "EQ",
+          "value": true
+        }
+      ],
+      "consequences": [
+        {
+          "varName": "CPU_A_OK",
+          "type": "BOOLEAN",
+          "operation": "EQ",
+          "value": true
+        }
+      ]
+    },
+    {
+      "name": "Ryzen5_A",
+      "antecedents": [
+        {
+          "varName": "Ryzen5_A",
           "type": "BOOLEAN",
           "operation": "EQ",
           "value": true
@@ -169,12 +319,12 @@
           "varName": "CPU",
           "type": "STRING",
           "operation": "EQ",
-          "value": "i3"
+          "value": "Ryzen5"
         }
       ],
       "consequences": [
         {
-          "varName": "CPU_A",
+          "varName": "CPU_A_OK",
           "type": "BOOLEAN",
           "operation": "EQ",
           "value": true
@@ -182,10 +332,41 @@
       ]
     },
     {
-      "name": "Availability",
+      "name": "Purchase Possible",
       "antecedents": [
         {
-          "varName": "CPU_A",
+          "varName": "buildable",
+          "type": "BOOLEAN",
+          "operation": "EQ",
+          "value": true
+        },
+        {
+          "varName": "enough_budget",
+          "type": "BOOLEAN",
+          "operation": "EQ",
+          "value": true
+        },
+        {
+          "varName": "availability",
+          "type": "BOOLEAN",
+          "operation": "EQ",
+          "value": true
+        }
+      ],
+      "consequences": [
+        {
+          "varName": "purchase_possible",
+          "type": "BOOLEAN",
+          "operation": "EQ",
+          "value": true
+        }
+      ]
+    },
+    {
+      "name": "KeyboardYes",
+      "antecedents": [
+        {
+          "varName": "keyboard",
           "type": "BOOLEAN",
           "operation": "EQ",
           "value": true
@@ -195,23 +376,11 @@
           "type": "BOOLEAN",
           "operation": "EQ",
           "value": true
-        },
-        {
-          "varName": "mouse_A",
-          "type": "BOOLEAN",
-          "operation": "EQ",
-          "value": true
-        },
-        {
-          "varName": "GPU_A",
-          "type": "BOOLEAN",
-          "operation": "EQ",
-          "value": true
         }
       ],
       "consequences": [
         {
-          "varName": "availability",
+          "varName": "keyboard_A_OK",
           "type": "BOOLEAN",
           "operation": "EQ",
           "value": true
@@ -236,7 +405,7 @@
       ],
       "consequences": [
         {
-          "varName": "GPU_A",
+          "varName": "GPU_A_OK",
           "type": "BOOLEAN",
           "operation": "EQ",
           "value": true
@@ -244,22 +413,10 @@
       ]
     },
     {
-      "name": "Buildable",
+      "name": "keyboardNo",
       "antecedents": [
         {
-          "varName": "MB_RAM_limit_exceeded",
-          "type": "BOOLEAN",
-          "operation": "EQ",
-          "value": false
-        },
-        {
-          "varName": "RAM",
-          "type": "NUMBER",
-          "operation": "GREAT",
-          "value": 0.0
-        },
-        {
-          "varName": "CPU_RAM_limit_exceeded",
+          "varName": "keyboard",
           "type": "BOOLEAN",
           "operation": "EQ",
           "value": false
@@ -267,7 +424,7 @@
       ],
       "consequences": [
         {
-          "varName": "buildable",
+          "varName": "keyboard_A_OK",
           "type": "BOOLEAN",
           "operation": "EQ",
           "value": true
@@ -275,143 +432,55 @@
       ]
     },
     {
-      "name": "RAM limit Pentium",
+      "name": "Availability",
       "antecedents": [
         {
-          "varName": "RAM",
-          "type": "NUMBER",
-          "operation": "LESS_EQ",
-          "value": 4.0
+          "varName": "mouse_A_OK",
+          "type": "BOOLEAN",
+          "operation": "EQ",
+          "value": true
         },
         {
-          "varName": "CPU",
-          "type": "STRING",
+          "varName": "GPU_A_OK",
+          "type": "BOOLEAN",
           "operation": "EQ",
-          "value": "Pentium"
+          "value": true
+        },
+        {
+          "varName": "CPU_A_OK",
+          "type": "BOOLEAN",
+          "operation": "EQ",
+          "value": true
+        },
+        {
+          "varName": "keyboard_A_OK",
+          "type": "BOOLEAN",
+          "operation": "EQ",
+          "value": true
         }
       ],
       "consequences": [
         {
-          "varName": "CPU_RAM_limit_exceeded",
+          "varName": "availability",
+          "type": "BOOLEAN",
+          "operation": "EQ",
+          "value": true
+        }
+      ]
+    },
+    {
+      "name": "mouseNo",
+      "antecedents": [
+        {
+          "varName": "mouse",
           "type": "BOOLEAN",
           "operation": "EQ",
           "value": false
         }
-      ]
-    },
-    {
-      "name": "Ryzen7_A",
-      "antecedents": [
-        {
-          "varName": "Ryzen7_A",
-          "type": "BOOLEAN",
-          "operation": "EQ",
-          "value": true
-        },
-        {
-          "varName": "CPU",
-          "type": "STRING",
-          "operation": "EQ",
-          "value": "Ryzen7"
-        }
       ],
       "consequences": [
         {
-          "varName": "CPU_A",
-          "type": "BOOLEAN",
-          "operation": "EQ",
-          "value": true
-        }
-      ]
-    },
-    {
-      "name": "i5_A",
-      "antecedents": [
-        {
-          "varName": "CPU",
-          "type": "STRING",
-          "operation": "EQ",
-          "value": "i5"
-        },
-        {
-          "varName": "i5_A",
-          "type": "BOOLEAN",
-          "operation": "EQ",
-          "value": true
-        }
-      ],
-      "consequences": [
-        {
-          "varName": "CPU_A",
-          "type": "BOOLEAN",
-          "operation": "EQ",
-          "value": true
-        }
-      ]
-    },
-    {
-      "name": "RAM limit DualCore",
-      "antecedents": [
-        {
-          "varName": "RAM",
-          "type": "NUMBER",
-          "operation": "LESS_EQ",
-          "value": 4.0
-        },
-        {
-          "varName": "CPU",
-          "type": "STRING",
-          "operation": "EQ",
-          "value": "DualCore"
-        }
-      ],
-      "consequences": [
-        {
-          "varName": "CPU_RAM_limit_exceeded",
-          "type": "BOOLEAN",
-          "operation": "EQ",
-          "value": false
-        }
-      ]
-    },
-    {
-      "name": "RAM limit Motherboard",
-      "antecedents": [
-        {
-          "varName": "RAM",
-          "type": "NUMBER",
-          "operation": "LESS_EQ",
-          "value": 64.0
-        }
-      ],
-      "consequences": [
-        {
-          "varName": "MB_RAM_limit_exceeded",
-          "type": "BOOLEAN",
-          "operation": "EQ",
-          "value": false
-        }
-      ]
-    },
-    {
-      "name": "GTX_A",
-      "antecedents": [
-        {
-          "varName": "GTX_A",
-          "type": "BOOLEAN",
-          "operation": "EQ",
-          "value": true
-        },
-        {
-          "varName": "GPU",
-          "type": "STRING",
-          "operation": "EQ",
-          "value": "GTX"
-        }
-      ],
-      "consequences": [
-        {
-          "varName": "GPU_A",
+          "varName": "mouse_A_OK",
           "type": "BOOLEAN",
           "operation": "EQ",
           "value": true
@@ -436,7 +505,7 @@
       ],
       "consequences": [
         {
-          "varName": "GPU_A",
+          "varName": "GPU_A_OK",
           "type": "BOOLEAN",
           "operation": "EQ",
           "value": true
@@ -444,10 +513,35 @@
       ]
     },
     {
-      "name": "DualCore_A",
+      "name": "GTX_A",
       "antecedents": [
         {
-          "varName": "DualCore_A",
+          "varName": "GTX_A",
+          "type": "BOOLEAN",
+          "operation": "EQ",
+          "value": true
+        },
+        {
+          "varName": "GPU",
+          "type": "STRING",
+          "operation": "EQ",
+          "value": "GTX"
+        }
+      ],
+      "consequences": [
+        {
+          "varName": "GPU_A_OK",
+          "type": "BOOLEAN",
+          "operation": "EQ",
+          "value": true
+        }
+      ]
+    },
+    {
+      "name": "Ryzen7_A",
+      "antecedents": [
+        {
+          "varName": "Ryzen7_A",
           "type": "BOOLEAN",
           "operation": "EQ",
           "value": true
@@ -456,12 +550,62 @@
           "varName": "CPU",
           "type": "STRING",
           "operation": "EQ",
-          "value": "DualCore"
+          "value": "Ryzen7"
         }
       ],
       "consequences": [
         {
-          "varName": "CPU_A",
+          "varName": "CPU_A_OK",
+          "type": "BOOLEAN",
+          "operation": "EQ",
+          "value": true
+        }
+      ]
+    },
+    {
+      "name": "GPUNone",
+      "antecedents": [
+        {
+          "varName": "GPU",
+          "type": "STRING",
+          "operation": "EQ",
+          "value": "None"
+        }
+      ],
+      "consequences": [
+        {
+          "varName": "GPU_buy",
+          "type": "BOOLEAN",
+          "operation": "EQ",
+          "value": false
+        },
+        {
+          "varName": "GPU_A_OK",
+          "type": "BOOLEAN",
+          "operation": "EQ",
+          "value": true
+        }
+      ]
+    },
+    {
+      "name": "i7_A",
+      "antecedents": [
+        {
+          "varName": "i7_A",
+          "type": "BOOLEAN",
+          "operation": "EQ",
+          "value": true
+        },
+        {
+          "varName": "CPU",
+          "type": "STRING",
+          "operation": "EQ",
+          "value": "i7"
+        }
+      ],
+      "consequences": [
+        {
+          "varName": "CPU_A_OK",
           "type": "BOOLEAN",
           "operation": "EQ",
           "value": true
