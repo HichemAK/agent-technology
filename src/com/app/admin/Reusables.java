@@ -33,4 +33,17 @@ public abstract class Reusables {
         return ret;
     }
 
+    public static boolean isNumber(String s) {
+        for(int i = 0; i < s.length(); i++) {
+            if(!isDigit(s.charAt(i))) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public static boolean isDigit(char c) {
+        return c >= '0' && c <= '9';
+    }
+
 }
