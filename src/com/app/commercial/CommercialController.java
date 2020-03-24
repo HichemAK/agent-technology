@@ -64,6 +64,7 @@ public class CommercialController {
         stock.put("DualCore", 4);
         stock.put("i3", 20);
         stock.put("i5", 20);
+        stock.put("i7", 0);
         stock.put("RTX", 0);
         stock.put("GTX", 3);
         stock.put("Radeon", 8);
@@ -85,6 +86,7 @@ public class CommercialController {
         price.put("DualCore", 7000);
         price.put("i3", 12000);
         price.put("i5", 22000);
+        stock.put("i7", 44000);
         price.put("RTX", 120000);
         price.put("GTX", 50000);
         price.put("Radeon", 30000);
@@ -98,6 +100,7 @@ public class CommercialController {
         price.put("ssd512", 12000);
         price.put("ssd1024", 30000);
         price.put("RAM", 1000);
+        price.put("None", 0);
 
         prepareIntel();
         prepareRAM();
@@ -203,7 +206,7 @@ public class CommercialController {
         double finalPrice = 0;
 
         finalPrice += price.get(comboCPU.getValue());
-        finalPrice += price.get("ram") * (Integer) comboRAM.getValue();
+        finalPrice += price.get("RAM") * Integer.parseInt((String) comboRAM.getValue());
         finalPrice += price.get(comboGPU.getValue());
         finalPrice += getDiskValue();
 
