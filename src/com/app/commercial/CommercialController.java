@@ -13,6 +13,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 
 import java.util.ArrayList;
@@ -20,10 +21,18 @@ import java.util.ArrayList;
 public class CommercialController {
     @FXML
     public JFXComboBox comboCPU, comboRAM, comboGPU;
+
     public JFXCheckBox cbKeyboard, cbMouse;
-    public JFXButton buttBuy;
+
+    public JFXButton buttBuy, buttExit;
+
     public JFXRadioButton rbIntel, rbAMD;
-    public ToggleGroup toggleCPU;
+    public JFXRadioButton rbHDD, rbSSD;
+    public JFXRadioButton rb256, rb512, rb1TB;
+
+    public ToggleGroup toggleCPU, toggleDisk, toggleGB;
+
+    public TextField tfBudget;
 
     public CommercialController() throws Exception {
     }
