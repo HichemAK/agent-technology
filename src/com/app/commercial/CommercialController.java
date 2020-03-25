@@ -71,12 +71,12 @@ public class CommercialController {
         stock.put("Titan", 0);
         stock.put("mouse", 40);
         stock.put("keyboard", 30);
-        stock.put("hdd256", 0);
-        stock.put("hdd512", 0);
-        stock.put("hdd1024", 30);
-        stock.put("ssd256", 12);
-        stock.put("ssd512", 8);
-        stock.put("ssd1024", 0);
+        stock.put("HDD256", 0);
+        stock.put("HDD512", 0);
+        stock.put("HDD1024", 30);
+        stock.put("SSD256", 12);
+        stock.put("SSD512", 8);
+        stock.put("SSD1024", 0);
         stock.put("RAM", 96);
 
         price.put("Ryzen3", 16000);
@@ -86,19 +86,19 @@ public class CommercialController {
         price.put("DualCore", 7000);
         price.put("i3", 12000);
         price.put("i5", 22000);
-        stock.put("i7", 44000);
+        price.put("i7", 44000);
         price.put("RTX", 120000);
         price.put("GTX", 50000);
         price.put("Radeon", 30000);
         price.put("Titan", 230000);
         price.put("mouse", 1000);
         price.put("keyboard", 1200);
-        price.put("hdd256", 2500);
-        price.put("hdd512", 5100);
-        price.put("hdd1024", 8000);
-        price.put("ssd256", 7000);
-        price.put("ssd512", 12000);
-        price.put("ssd1024", 30000);
+        price.put("HDD256", 2500);
+        price.put("HDD512", 5100);
+        price.put("HDD1024", 8000);
+        price.put("SSD256", 7000);
+        price.put("SSD512", 12000);
+        price.put("SSD1024", 30000);
         price.put("RAM", 1000);
         price.put("None", 0);
 
@@ -228,11 +228,11 @@ public class CommercialController {
             case "HDD":
                 switch(capacity) {
                     case "256GB":
-                        return price.get("hdd256");
+                        return price.get("HDD256");
                     case "512GB":
-                        return price.get("hdd512");
+                        return price.get("HDD512");
                     case "1TB":
-                        return price.get("hdd1024");
+                        return price.get("HDD1024");
                     default:
                         System.out.println("capacity... HDD");
                 }
@@ -241,11 +241,11 @@ public class CommercialController {
             case "SSD":
                 switch(capacity) {
                     case "256GB":
-                        return price.get("ssd256");
+                        return price.get("SSD256");
                     case "512GB":
-                        return price.get("ssd512");
+                        return price.get("SSD512");
                     case "1TB":
-                        return price.get("ssd1024");
+                        return price.get("SSD1024");
                     default:
                         System.out.println("capacity... SSD");
                 }
@@ -258,6 +258,45 @@ public class CommercialController {
         return 0;
     }
 
+    private String getDisk() {
+
+        String type = ((RadioButton)(toggleDisk.getSelectedToggle())).getText();
+        String capacity = ((RadioButton)(toggleGB.getSelectedToggle())).getText();
+
+        switch(type) {
+            case "HDD":
+                switch(capacity) {
+                    case "256GB":
+                        return "HDD256";
+                    case "512GB":
+                        return "HDD512";
+                    case "1TB":
+                        return "HDD1024";
+                    default:
+                        System.out.println("capacity... HDD");
+                }
+                break;
+
+            case "SSD":
+                switch(capacity) {
+                    case "256GB":
+                        return "SSD256";
+                    case "512GB":
+                        return "SSD512";
+                    case "1TB":
+                        return "SSD1024";
+                    default:
+                        System.out.println("capacity... SSD");
+                }
+                break;
+
+            default:
+                System.out.println("capacity... ALL");
+        }
+
+        return null;
+    }
+
     public void buy(ActionEvent actionEvent) throws Exception {
         if(tfBudget.getText().isEmpty()){
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -268,7 +307,7 @@ public class CommercialController {
         }
 
         HashMap<String, Boolean> availability = new HashMap<>();
-        //HashSet<String> specialCases = new HashSet<>(Arrays.asList("hdd256", "hdd512", "hdd1024", "ssd256", "ssd512", "ssd1024", "RAM"));
+        //HashSet<String> specialCases = new HashSet<>(Arrays.asList("HDD256", "HDD512", "HDD1024", "SSD256", "SSD512", "SSD1024", "RAM"));
         HashSet<String> specialCases = new HashSet<>(Arrays.asList("RAM"));
         for(Map.Entry m : stock.entrySet()){
             if(!specialCases.contains(m.getKey())){
@@ -327,12 +366,12 @@ public class CommercialController {
                 cbKeyboard.isSelected()
         );
         Statement.addTo(knowledge, s);
-
+        
         s = new Statement(
-                "hard_drive_buy",
-                Type.BOOLEAN,
+                "HD",
+                Type.STRING,
                 Operation.EQ,
-                true
+                getDisk()
         );
         Statement.addTo(knowledge, s);
 
