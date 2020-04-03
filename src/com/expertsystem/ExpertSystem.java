@@ -58,12 +58,12 @@ public class ExpertSystem{
         knowledgeBase = Statement.removeRedundancies(knowledgeBase);
     }
 
-    public boolean removeStatement(int index) {
-        if(index < 0 || index >= knowledgeBase.size()) {
+    public boolean removeKnowledge(Statement S) {
+        if(S == null || !knowledgeBase.contains(S)) {
             return false;
         }
 
-        knowledgeBase.remove(index);
+        knowledgeBase.remove(S);
         return true;
     }
 

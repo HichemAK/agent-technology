@@ -71,26 +71,6 @@ public class Rule{
         return result.toString();
     }
 
-    public HashSet<String> antecedentsToString() {
-        HashSet<String> ret = new HashSet<String>();
-
-        for(Statement s : antecedents) {
-            ret.add(s.toString());
-        }
-
-        return ret;
-    }
-
-    public HashSet<String> consequencesToString() {
-        HashSet<String> ret = new HashSet<String>();
-
-        for(Statement s : consequences) {
-            ret.add(s.toString());
-        }
-
-        return ret;
-    }
-
     public void removeRedundancies(){
         antecedents = Statement.removeRedundancies(antecedents);
         consequences = Statement.removeRedundancies(consequences);
