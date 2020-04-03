@@ -396,7 +396,7 @@ public class CommercialController {
         }
         System.out.println(ES.getKnowledgeBase());
         if(ES.infer(goal)){
-            lblResult.setText("Your order has been registered successfully! A parcel will arrive in 5 days");
+            lblResult.setText("Your order has been registered successfully!");
             lblResult.setTextFill(Paint.valueOf(clrBlue));
         }
         else{
