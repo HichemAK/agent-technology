@@ -9,6 +9,7 @@ import javafx.scene.control.ChoiceBox;
 import java.util.ArrayList;
 import com.expertsystem.Type;
 import javafx.scene.control.Label;
+import javafx.scene.paint.Color;
 
 public class ClientController {
     public ChoiceBox vehicleTypeCB;
@@ -95,6 +96,7 @@ public class ClientController {
             if(ES.infer(goal)){
                 found = true;
                 resultLabel.setText("Your vehicle is a " + ((String)(goal.getValue())).replace("_", " "));
+                resultLabel.setTextFill(Color.GREEN);
                 break;
             }
         }
@@ -103,6 +105,7 @@ public class ClientController {
 
         if(!found){
             resultLabel.setText("Your vehicle can not be inferred from given information.");
+            resultLabel.setTextFill(Color.RED);
         }
 
     }

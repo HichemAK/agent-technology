@@ -673,6 +673,7 @@
 											"model": {
 												"$ref": "AAAAAAFxP/X7UA2KFro="
 											},
+											"visible": false,
 											"font": "Arial;13;0",
 											"left": 597,
 											"top": 504,
@@ -692,7 +693,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 597,
-											"top": 519,
+											"top": 504,
 											"width": 450.5439453125,
 											"height": 13,
 											"underline": true,
@@ -704,7 +705,7 @@
 									"left": 592,
 									"top": 439,
 									"width": 460.5439453125,
-									"height": 98
+									"height": 83
 								},
 								{
 									"_type": "UMLReceptionCompartmentView",
@@ -2434,7 +2435,7 @@
 											"top": 162,
 											"width": 86.72802734375,
 											"height": 13,
-											"text": "+INTEGER",
+											"text": "+NUMBER",
 											"horizontalAlignment": 0
 										},
 										{
@@ -4424,8 +4425,7 @@
 									"_parent": {
 										"$ref": "AAAAAAFw7d/HmaQ58nc="
 									},
-									"name": "INTEGER",
-									"type": ""
+									"name": "NUMBER"
 								},
 								{
 									"_type": "UMLAttribute",

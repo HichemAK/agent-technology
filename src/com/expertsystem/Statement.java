@@ -185,7 +185,14 @@ public class Statement{
 
     @Override
     public String toString() {
-        return varName + " " + operation.getSymb() + " " + value.toString();
+        String str = value.toString();
+        if(type == Type.NUMBER){
+            String temp = String.valueOf((double) value);
+            if(temp.substring(temp.length()-2).equals(".0")){
+                str = temp.substring(0, temp.length()-2);
+            }
+        }
+        return varName + " " + operation.getSymb() + " " + str;
     }
 
     public String getVarName() {
