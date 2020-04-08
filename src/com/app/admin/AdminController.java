@@ -56,11 +56,12 @@ public class AdminController {
             lblDirectory.setText(none);
         }
         else {
-            String fileName = currentFile.getPath();
+            String absPath = currentFile.getAbsolutePath();
+            String entities[] = absPath.split("\\\\");
+            String fileName = entities[entities.length - 1];
             lblFileName.setText(fileName);
 
-            String path = currentFile.getAbsolutePath();
-            String subPath = path.replaceAll(fileName, "");
+            String subPath = absPath.substring(0, absPath.length() - fileName.length() - 1);
             lblDirectory.setText(subPath);
         }
         lblNumberOfRules.setText(Integer.toString(ES.getNumberOfRules()));
