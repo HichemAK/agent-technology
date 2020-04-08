@@ -97,7 +97,7 @@
                                        <children>
                                           <AnchorPane fx:id="apNumber" prefHeight="200.0" prefWidth="200.0">
                                              <children>
-                                                <JFXComboBox fx:id="cbOperation" layoutX="8.0" layoutY="27.0" prefHeight="26.0" prefWidth="64.0">
+                                                <JFXComboBox fx:id="cbOperation" focusColor="#42acff" layoutX="8.0" layoutY="27.0" prefHeight="26.0" prefWidth="64.0">
                                                    <cursor>
                                                       <Cursor fx:constant="HAND" />
                                                    </cursor>

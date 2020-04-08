@@ -128,7 +128,6 @@ public class ExpertSystem{
         return ret;
     }
 
-
     public void save(String filepath) {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         try {
@@ -156,5 +155,13 @@ public class ExpertSystem{
             result.append(S.toString() + "\n");
         }
         return result.toString();
+    }
+
+    public int getNumberOfRules() {
+        return this.rules.size();
+    }
+
+    public String getStringNumOfRules() {
+        return Integer.toString(this.rules.size());
     }
 }

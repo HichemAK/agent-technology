@@ -13,6 +13,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
@@ -33,9 +34,9 @@ public class AdminController {
     @FXML
     public JFXButton buttNew, buttLoad, buttSave, buttSaveAs, buttCommit, buttOptimize, buttExit, buttAddRule, buttClear;
     public VBox vbRules;
+    public Label lblDirectory, lblFileName, lblNumberOfRules;
 
     ExpertSystem ES;
-
 
     File currentFile = null;
     public static Rule addedRule = null;
@@ -46,6 +47,23 @@ public class AdminController {
         ES = new ExpertSystem();
         this.prepare();
         this.refresh();
+    }
+
+    private void updateLabels() {
+        if(currentFile == null) {
+            String none = "None";
+            lblFileName.setText(none);
+            lblDirectory.setText(none);
+        }
+        else {
+            String fileName = currentFile.getPath();
+            lblFileName.setText(fileName);
+
+            String path = currentFile.getAbsolutePath();
+            String subPath = path.replaceAll(fileName, "");
+            lblDirectory.setText(subPath);
+        }
+        lblNumberOfRules.setText(Integer.toString(ES.getNumberOfRules()));
     }
 
     private void prepare(){
@@ -72,7 +90,6 @@ public class AdminController {
                 e.printStackTrace();
             }
         });
-        // buttCommit.setOnAction()
         buttOptimize.setOnAction(this::optimizeES);
         buttExit.setOnAction(this::exit);
         buttAddRule.setOnAction(actionEvent -> {
@@ -232,6 +249,7 @@ public class AdminController {
 
         this.programDelete();
         this.programEdit();
+        this.updateLabels();
     }
 
     private boolean alertProceed() {
