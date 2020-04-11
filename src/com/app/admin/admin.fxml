@@ -248,7 +248,7 @@
                                         </GridPane>
                                     </children>
                                 </AnchorPane>
-                                <ScrollPane fx:id="scrollRules" hbarPolicy="NEVER" layoutY="30.0" prefHeight="530.0" prefWidth="500.0" style="-fx-background: #36393F; -fx-border-color: #36393F; -fx-background-color: #36393F;">
+                                <ScrollPane fx:id="scrollRules" hbarPolicy="NEVER" layoutY="30.0" prefHeight="530.0" prefWidth="500.0" style="-fx-background: #36393F; -fx-border-color: #36393F; -fx-background-color: #36393F;" vbarPolicy="NEVER">
                            <content>
                               <VBox fx:id="vbRules" maxWidth="494.4" minWidth="494.4" prefWidth="494.4" spacing="20.0">
                                  <opaqueInsets>

@@ -49,6 +49,8 @@ public class RuleVBox extends VBox {
     public RuleVBox(Rule rule) {
         super();
 
+        this.styleSelf();
+
         this.initImages();
         this.initFont();
         this.initStrings();
@@ -63,6 +65,16 @@ public class RuleVBox extends VBox {
         this.initVBs();
 
         this.generate();
+    }
+
+    private void styleSelf() {
+
+        String selfStyles = "-fx-border-color: #36393F;" +
+                "-fx-border-radius: 1em;" +
+                "-fx-background-color: #202225;" +
+                "-fx-background-radius: 1em;";
+
+        this.setStyle(selfStyles);
     }
 
     private void initImages() {
@@ -89,30 +101,34 @@ public class RuleVBox extends VBox {
         clrGreen = "#30ee30";
         clrBlue = "#42acff";
         clrRed = "#e03d3d";
-        clrGrey =  "#aaaaaa";
-        clrBack = "#c8c8c8";
-        clrBlack = "#000000";
-        clrWhite = "#ffffff";
+        clrGrey =  "#202225";
+        clrBack = "#36393F";
+        clrBlack = "#36393F";
+        clrWhite = "#b9bbbe";
     }
 
     private void initLabels() {
         lblIF = new Label();
         lblIF.setText(strIf);
         lblIF.setFont(font);
+        lblIF.setTextFill(Paint.valueOf(clrWhite));
         lblIF.setUnderline(true);
 
         lblTHEN = new Label();
         lblTHEN.setText(strTHEN);
         lblTHEN.setFont(font);
+        lblTHEN.setTextFill(Paint.valueOf(clrWhite));
         lblTHEN.setUnderline(true);
 
         lblName = new Label();
         lblName.setText(strName);
         lblName.setFont(font);
+        lblName.setTextFill(Paint.valueOf(clrWhite));
 
         lblRules = new Label();
         lblRules.setText(strRule);
         lblRules.setFont(font);
+        lblRules.setTextFill(Paint.valueOf(clrWhite));
     }
 
     private void initBtnEdit() {
@@ -183,6 +199,7 @@ public class RuleVBox extends VBox {
 
         lbl.setText(st.toString());
         lbl.setFont(font);
+        lbl.setTextFill(Paint.valueOf(clrWhite));
 
         return lbl;
     }
@@ -316,10 +333,6 @@ public class RuleVBox extends VBox {
 
     private void generate() {
 
-        String styles = "-fx-background-color: " + clrGrey + ";" +
-                "-fx-border-color: " + clrBack + ";" +
-                "";
-
         Line s1 = new Line();
         s1.setStroke(Paint.valueOf(clrBack));
         s1.setStrokeWidth(2);
@@ -342,7 +355,7 @@ public class RuleVBox extends VBox {
         s2.setEndX(474);
         s2.setEndY(0);
 
-        this.setStyle(styles);
+        this.styleSelf();
         this.getChildren().clear();
         this.getChildren().addAll(header, s1, ifSectionHBox, s2, thenSectionHBox);
     }

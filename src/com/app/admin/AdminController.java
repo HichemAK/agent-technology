@@ -168,6 +168,7 @@ public class AdminController {
             ES.save(fileES);
             currentFile = fileES;
             buttSave.setDisable(false);
+            refresh();
         }
     }
 
