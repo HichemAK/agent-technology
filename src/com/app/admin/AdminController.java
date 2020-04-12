@@ -13,6 +13,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
@@ -31,11 +32,11 @@ import java.util.Optional;
 
 public class AdminController {
     @FXML
-    public JFXButton buttNew, buttLoad, buttSave, buttSaveAs, buttCommit, buttOptimize, buttExit, buttAddRule, buttClear;
+    public JFXButton buttNew, buttLoad, buttSave, buttSaveAs, buttOptimize, buttExit, buttAddRule, buttClear;
     public VBox vbRules;
+    public Label lblDirectory, lblFileName, lblNumberOfRules;
 
     ExpertSystem ES;
-
 
     File currentFile = null;
     public static Rule addedRule = null;
@@ -46,6 +47,24 @@ public class AdminController {
         ES = new ExpertSystem();
         this.prepare();
         this.refresh();
+    }
+
+    private void updateLabels() {
+        if(currentFile == null) {
+            String none = "None";
+            lblFileName.setText(none);
+            lblDirectory.setText(none);
+        }
+        else {
+            String absPath = currentFile.getAbsolutePath();
+            String entities[] = absPath.split("\\\\");
+            String fileName = entities[entities.length - 1];
+            lblFileName.setText(fileName);
+
+            String subPath = absPath.substring(0, absPath.length() - fileName.length() - 1);
+            lblDirectory.setText(subPath);
+        }
+        lblNumberOfRules.setText(Integer.toString(ES.getNumberOfRules()));
     }
 
     private void prepare(){
@@ -72,7 +91,6 @@ public class AdminController {
                 e.printStackTrace();
             }
         });
-        // buttCommit.setOnAction()
         buttOptimize.setOnAction(this::optimizeES);
         buttExit.setOnAction(this::exit);
         buttAddRule.setOnAction(actionEvent -> {
@@ -150,6 +168,7 @@ public class AdminController {
             ES.save(fileES);
             currentFile = fileES;
             buttSave.setDisable(false);
+            refresh();
         }
     }
 
@@ -232,6 +251,7 @@ public class AdminController {
 
         this.programDelete();
         this.programEdit();
+        this.updateLabels();
     }
 
     private boolean alertProceed() {
