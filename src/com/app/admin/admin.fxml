@@ -174,14 +174,6 @@
                                         </VBox>
                                         <VBox alignment="BOTTOM_CENTER" spacing="10.0" GridPane.rowIndex="1">
                                             <children>
-                                                <JFXButton fx:id="buttCommit" maxHeight="40.0" maxWidth="180.0" minHeight="40.0" minWidth="180.0" prefHeight="40.0" prefWidth="180.0" style="-fx-border-color: #42acff; -fx-background-color: #42acff; -fx-border-radius: 5em; -fx-background-radius: 5em;" text="Commit" textAlignment="CENTER" textFill="#212121">
-                                                    <font>
-                                                        <Font size="18.0" />
-                                                    </font>
-                                                    <cursor>
-                                                        <Cursor fx:constant="HAND" />
-                                                    </cursor>
-                                                </JFXButton>
                                                 <JFXButton fx:id="buttOptimize" maxHeight="40.0" maxWidth="180.0" minHeight="40.0" minWidth="180.0" onAction="#optimizeES" prefHeight="40.0" prefWidth="180.0" style="-fx-border-color: #42acff; -fx-background-color: #42acff; -fx-border-radius: 5em; -fx-background-radius: 5em;" text="Optimize" textAlignment="CENTER" textFill="#212121">
                                                     <font>
                                                         <Font size="18.0" />

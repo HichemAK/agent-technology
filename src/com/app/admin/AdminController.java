@@ -32,7 +32,7 @@ import java.util.Optional;
 
 public class AdminController {
     @FXML
-    public JFXButton buttNew, buttLoad, buttSave, buttSaveAs, buttCommit, buttOptimize, buttExit, buttAddRule, buttClear;
+    public JFXButton buttNew, buttLoad, buttSave, buttSaveAs, buttOptimize, buttExit, buttAddRule, buttClear;
     public VBox vbRules;
     public Label lblDirectory, lblFileName, lblNumberOfRules;
 
