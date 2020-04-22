@@ -41,7 +41,7 @@ public class CommercialController {
 
     private String clrBlue, clrRed, clrBlack;
 
-    private ExpertSystem ES = new ExpertSystem("PC.es");
+    private ExpertSystem ES = new ExpertSystem("examples/PC.es");
     private HashMap<String, Integer> stock = new HashMap<>();
     private ArrayList<String> amd_cpus = new ArrayList<>(Arrays.asList("None", "Ryzen3", "Ryzen5", "Ryzen7"));
     private ArrayList<String> intel_cpus = new ArrayList<>(Arrays.asList("None", "Pentium", "DualCore", "i3", "i5", "i7"));
