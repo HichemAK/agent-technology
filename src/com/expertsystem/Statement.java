@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.HashSet;
 
-public class Statement{
+public class Statement implements Serializable {
     private String varName;
     private Type type;
     private Operation operation;
