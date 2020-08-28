@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -55,7 +56,10 @@
                   <ChoiceBox fx:id="sizeCB" prefHeight="26.0" prefWidth="180.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                </children>
             </GridPane>
-            <JFXButton fx:id="evalButton" onAction="#evaluate" prefHeight="26.0" prefWidth="102.0" style="-fx-background-color: #42acff;" text="Evaluate" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
+            <JFXButton fx:id="evalButton" onAction="#evaluate" prefHeight="26.0" prefWidth="102.0" style="-fx-background-color: #42acff;" text="Evaluate" GridPane.halignment="CENTER" GridPane.rowIndex="3">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></JFXButton>
             <Label fx:id="resultLabel" alignment="CENTER" prefHeight="18.0" prefWidth="301.0" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
          </children>
       </GridPane>
