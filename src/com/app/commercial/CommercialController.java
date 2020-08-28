@@ -106,6 +106,14 @@ public class CommercialController {
         prepareRAM();
         prepareGPU();
         buttBuy.setDisable(false);
+        comboCPU.getSelectionModel().select(3);
+        comboRAM.getSelectionModel().select(4);
+        comboGPU.getSelectionModel().select(3);
+
+        rb1TB.setSelected(true);
+        cbKeyboard.setSelected(true);
+        cbMouse.setSelected(true);
+        tfBudget.setText("80000");
 
         addListeners();
 
