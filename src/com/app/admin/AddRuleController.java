@@ -44,7 +44,7 @@ public class AddRuleController {
 
     private Hashtable<String, Type> typeTable = new Hashtable<>();
     private Hashtable<String, Operation> opTable = new Hashtable<>();
-    private String varNameRegex = "^[a-zA-Z_$][a-zA-Z_$0-9]*$";
+    private String varNameRegex = "^[a-zA-Z_$][a-zA-Z_$0-9 ]*$";
     private String valueIntRegex = "^[0-9]+$";
 
 

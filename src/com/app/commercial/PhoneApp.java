@@ -4,9 +4,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
-public class MainApp extends javafx.application.Application {
+public class PhoneApp extends javafx.application.Application {
 
     public static void main(String[] args) {
         launch(args);
@@ -14,10 +13,10 @@ public class MainApp extends javafx.application.Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("main.fxml"));
-        primaryStage.setTitle("Commercial App");
+        Parent root = FXMLLoader.load(getClass().getResource("phone.fxml"));
+        primaryStage.setTitle("Buy Smartphone");
         primaryStage.setScene(new Scene(root));
-        primaryStage.initStyle(StageStyle.UNDECORATED);
+
         primaryStage.show();
     }
 }

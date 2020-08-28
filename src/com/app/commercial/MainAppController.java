@@ -23,6 +23,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
+import javax.swing.*;
 import java.io.IOException;
 import java.util.*;
 
@@ -41,6 +42,7 @@ public class MainAppController {
     public void initialize(){
         buttExit.setOnAction(this::exit);
         buttPcAssembler.setOnAction(this::pcAssembler);
+        buttPhone.setOnAction(this::buyPhone);
     }
 
     private void exit(ActionEvent actionEvent){
@@ -57,9 +59,25 @@ public class MainAppController {
             e.printStackTrace();
         }
         Stage stage = new Stage();
-        stage.initModality(Modality.WINDOW_MODAL);
+        stage.initModality(Modality.APPLICATION_MODAL);
         stage.initStyle(StageStyle.UNDECORATED);
         stage.setTitle("PC Assembler");
+        stage.setScene(new Scene(root1));
+        stage.show();
+    }
+
+    private void buyPhone(ActionEvent actionEvent){
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("phone.fxml"));
+        Parent root1 = null;
+        try {
+            root1 = (Parent) fxmlLoader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Stage stage = new Stage();
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.initStyle(StageStyle.UNDECORATED);
+        stage.setTitle("Buy Smartphone");
         stage.setScene(new Scene(root1));
         stage.show();
     }
