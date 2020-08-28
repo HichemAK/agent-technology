@@ -41,7 +41,7 @@ public class CommercialController {
 
     private String clrBlue, clrRed, clrBlack;
 
-    private ExpertSystem ES = new ExpertSystem("PC.es");
+    private ExpertSystem ES = new ExpertSystem("examples/PC.es");
     private HashMap<String, Integer> stock = new HashMap<>();
     private ArrayList<String> amd_cpus = new ArrayList<>(Arrays.asList("None", "Ryzen3", "Ryzen5", "Ryzen7"));
     private ArrayList<String> intel_cpus = new ArrayList<>(Arrays.asList("None", "Pentium", "DualCore", "i3", "i5", "i7"));
@@ -375,13 +375,13 @@ public class CommercialController {
         );
         Statement.addTo(knowledge, s);
 
-        s = new Statement(
+        Statement enough_budget = new Statement(
                 "enough_budget",
                 Type.BOOLEAN,
                 Operation.EQ,
                 calculatePrice() <= Double.parseDouble(tfBudget.getText())
         );
-        Statement.addTo(knowledge, s);
+        Statement.addTo(knowledge, enough_budget);
 
         Statement goal = new Statement(
                 "purchase_possible",
@@ -400,7 +400,28 @@ public class CommercialController {
             lblResult.setTextFill(Paint.valueOf(clrBlue));
         }
         else{
-            lblResult.setText("Sorry, we were unable to fulfill the wishes of your command");
+            String str = "Sorry, we were unable to fulfill the wishes of your command:";
+            if(!(boolean)(enough_budget.getValue())){
+                str += "\n- Your budget is insufficient.";
+            }
+            if(!ES.infer(new Statement(
+                    "buildable",
+                    Type.BOOLEAN,
+                    Operation.EQ,
+                    true
+            ))){
+                str += "\n- Your PC cannot be built.";
+            }
+            if(!ES.infer(new Statement(
+                    "availability",
+                    Type.BOOLEAN,
+                    Operation.EQ,
+                    true
+            ))){
+                str += "\n- One of the requested components is not available.";
+            }
+            lblResult.setText(str);
+
             lblResult.setTextFill(Paint.valueOf(clrRed));
         }
         System.out.println(ES.getKnowledgeBase());
