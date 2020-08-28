@@ -13,8 +13,8 @@ public class MainApp extends javafx.application.Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("commercial.fxml"));
-        primaryStage.setTitle("PC Assembler");
+        Parent root = FXMLLoader.load(getClass().getResource("main.fxml"));
+        primaryStage.setTitle("Commercial App");
         primaryStage.setScene(new Scene(root));
 
         primaryStage.show();

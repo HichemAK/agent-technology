@@ -14,11 +14,13 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import com.app.admin.Reusables;
 import javafx.scene.paint.Paint;
+import javafx.stage.Stage;
 
 import java.awt.*;
 import java.util.*;
@@ -182,9 +184,9 @@ public class CommercialController {
     }
 
     private void exit(ActionEvent actionEvent){
-
-        Platform.exit();
-        System.exit(0);
+        final Node source = (Node) actionEvent.getSource();
+        final Stage stage = (Stage) source.getScene().getWindow();
+        stage.close();
     }
 
     private void prepareIntel() {
